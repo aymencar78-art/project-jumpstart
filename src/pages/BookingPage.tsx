@@ -839,47 +839,6 @@ const BookingPage = ({ lang, t }: Props) => {
                     })}
                   </div>
 
-                  {/* payment selector */}
-                  <div style={{ ...labelStyle, marginBottom: "12px", fontSize: "15px" }}>
-                    {tr(lang, "Mode de paiement", "Payment method", "Zahlungsart", "Método de pago", "طريقة الدفع")}
-                  </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
-                    {([
-                      { id: "cash" as const, icon: <Banknote size={20} />, t1: tr(lang, "Cash", "Cash", "Bar", "Efectivo", "نقدًا"), t2: tr(lang, "Au chauffeur", "To the driver", "An den Fahrer", "Al conductor", "للسائق") },
-                      { id: "online" as const, icon: <CreditCard size={20} />, t1: tr(lang, "En ligne", "Online", "Online", "En línea", "عبر الإنترنت"), t2: tr(lang, "Carte sécurisée", "Secure card", "Sichere Karte", "Tarjeta segura", "بطاقة آمنة") },
-                    ]).map((opt) => {
-                      const sel = s2.payment === opt.id;
-                      return (
-                        <button
-                          key={opt.id}
-                          type="button"
-                          onClick={() => setS2((p) => ({ ...p, payment: opt.id }))}
-                          style={{
-                            padding: "16px",
-                            borderRadius: "14px",
-                            border: sel ? "2px solid hsl(var(--gold))" : "2px solid hsl(var(--border))",
-                            background: sel ? "rgba(212,175,55,0.08)" : "#fff",
-                            cursor: "pointer",
-                            textAlign: "left",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "12px",
-                            transition: "all .2s",
-                            boxShadow: sel ? "0 6px 18px -4px rgba(212,175,55,0.4)" : "none",
-                          }}
-                        >
-                          <div style={{ width: 44, height: 44, borderRadius: 12, background: "hsl(var(--ink))", color: "hsl(var(--gold))", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                            {opt.icon}
-                          </div>
-                          <div>
-                            <div style={{ fontFamily: "var(--font-body)", fontSize: "16px", fontWeight: 700, color: "hsl(var(--ink))" }}>{opt.t1}</div>
-                            <div style={{ fontSize: "12px", color: "hsl(var(--text-muted))" }}>{opt.t2}</div>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-
                   {/* client form */}
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "16px" }}>
                     <div>
@@ -926,6 +885,50 @@ const BookingPage = ({ lang, t }: Props) => {
                         {tr(lang, "Commentaires", "Comments", "Kommentare", "Comentarios", "ملاحظات")}
                       </label>
                       <textarea id="c-notes" rows={3} value={s2.notes} maxLength={500} onChange={(e) => setS2((p) => ({ ...p, notes: e.target.value }))} placeholder={t.notes_ph} style={{ ...inputStyle, resize: "none" }} />
+                    </div>
+                  </div>
+
+                  {/* payment selector — placed at the bottom of the last form, just before action buttons */}
+                  <div style={{ borderTop: "1px solid hsl(var(--border))", paddingTop: "20px", marginBottom: "20px" }}>
+                    <div style={{ ...labelStyle, marginBottom: "12px", fontSize: "16px" }}>
+                      {tr(lang, "Mode de paiement", "Payment method", "Zahlungsart", "Método de pago", "طريقة الدفع")}
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                      {([
+                        { id: "cash" as const, icon: <Banknote size={20} />, t1: tr(lang, "Cash", "Cash", "Bar", "Efectivo", "نقدًا"), t2: tr(lang, "Au chauffeur", "To the driver", "An den Fahrer", "Al conductor", "للسائق") },
+                        { id: "online" as const, icon: <CreditCard size={20} />, t1: tr(lang, "En ligne", "Online", "Online", "En línea", "عبر الإنترنت"), t2: tr(lang, "Carte sécurisée", "Secure card", "Sichere Karte", "Tarjeta segura", "بطاقة آمنة") },
+                      ]).map((opt) => {
+                        const sel = s2.payment === opt.id;
+                        return (
+                          <button
+                            key={opt.id}
+                            type="button"
+                            onClick={() => setS2((p) => ({ ...p, payment: opt.id }))}
+                            style={{
+                              padding: "16px",
+                              borderRadius: "14px",
+                              border: sel ? "2px solid hsl(var(--gold))" : "2px solid hsl(var(--border))",
+                              background: sel ? "rgba(212,175,55,0.08)" : "#fff",
+                              cursor: "pointer",
+                              textAlign: dir === "rtl" ? "right" : "left",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "12px",
+                              transition: "all .2s",
+                              boxShadow: sel ? "0 6px 18px -4px rgba(212,175,55,0.4)" : "none",
+                              flexDirection: dir === "rtl" ? "row-reverse" : "row",
+                            }}
+                          >
+                            <div style={{ width: 48, height: 48, borderRadius: 12, background: "hsl(var(--ink))", color: "hsl(var(--gold))", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                              {opt.icon}
+                            </div>
+                            <div>
+                              <div style={{ fontFamily: "var(--font-body)", fontSize: "17px", fontWeight: 700, color: "hsl(var(--ink))" }}>{opt.t1}</div>
+                              <div style={{ fontSize: "13px", color: "hsl(var(--text-muted))", fontWeight: 500 }}>{opt.t2}</div>
+                            </div>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 
