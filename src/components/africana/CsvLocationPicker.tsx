@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import { Plane, MapPin } from "lucide-react";
 import { TRANSFER_LOCATIONS, type TransferLocation } from "@/data/transfers";
 
@@ -18,7 +18,7 @@ type Props = {
  * - When focused / typing, shows matching airports + cities grouped.
  * - Picking a suggestion sets the value to the exact CSV name so route lookup works.
  */
-const CsvLocationPicker = ({ value, onChange, placeholder, id, ariaLabel, excludeName }: Props) => {
+const CsvLocationPicker = forwardRef<HTMLDivElement, Props>(({ value, onChange, placeholder, id, ariaLabel, excludeName }, _ref) => {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
