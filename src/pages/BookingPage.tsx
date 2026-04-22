@@ -38,22 +38,23 @@ import carMonospace from "@/assets/car-monospace.jpg";
 const labelStyle: React.CSSProperties = {
   display: "flex",
   alignItems: "center",
-  gap: "6px",
+  gap: "8px",
   fontFamily: "var(--font-body)",
-  fontSize: "14px",
-  fontWeight: 600,
+  fontSize: "16px",
+  fontWeight: 700,
   color: "hsl(var(--ink))",
-  marginBottom: "8px",
+  marginBottom: "10px",
 };
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  padding: "14px 14px",
+  padding: "16px 14px",
   background: "#fff",
   border: "1px solid hsl(var(--border))",
   borderRadius: "10px",
   color: "hsl(var(--ink))",
   fontFamily: "var(--font-body)",
-  fontSize: "15px",
+  fontSize: "17px",
+  fontWeight: 600,
   outline: "none",
 };
 const inputErrStyle: React.CSSProperties = {
@@ -61,10 +62,11 @@ const inputErrStyle: React.CSSProperties = {
   border: "1px solid hsl(var(--destructive))",
 };
 const errMsgStyle: React.CSSProperties = {
-  fontSize: "12px",
+  fontSize: "14px",
   color: "hsl(var(--destructive))",
   marginTop: "4px",
   fontFamily: "var(--font-body)",
+  fontWeight: 600,
 };
 
 /* ---------- micro-i18n ---------- */
