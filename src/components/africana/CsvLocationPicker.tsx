@@ -161,6 +161,7 @@ const CsvLocationPicker = forwardRef<HTMLDivElement, Props>(({ value, onChange, 
       )}
     </div>
   );
-};
+});
+CsvLocationPicker.displayName = "CsvLocationPicker";
 
 export default CsvLocationPicker;
