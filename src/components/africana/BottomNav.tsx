@@ -45,13 +45,13 @@ const BottomNav = ({ page, setPage, t }: Props) => {
                 minWidth: "48px",
               }}
             >
-              <span style={{ fontSize: "19px", lineHeight: 1 }}>{item.icon}</span>
+              <span style={{ fontSize: "22px", lineHeight: 1 }}>{item.icon}</span>
               <span
                 style={{
-                  fontSize: "8px",
+                  fontSize: "12px",
                   letterSpacing: ".5px",
                   color: item.primary ? "hsl(var(--ink))" : page === item.k ? "hsl(var(--gold-light))" : "hsl(var(--on-ink-muted))",
-                  fontWeight: item.primary || page === item.k ? 600 : 400,
+                  fontWeight: item.primary || page === item.k ? 700 : 600,
                 }}
               >
                 {item.l}
