@@ -1,105 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* ======================================================
+   AFRICANA — Design System
+   All brand tokens in HSL. Semantic only; no raw colors in components.
+   ====================================================== */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Brand surfaces — Refined Cream + Espresso pairing for elegant warmth */
+    --background: 40 30% 95%;         /* #F4EEE1 soft cream */
+    --foreground: 30 18% 13%;         /* #2A231C espresso ink */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --bg-surface: 38 26% 91%;         /* #EAE0CD elevated cream */
+    --bg-card: 36 22% 88%;            /* #DFD5C0 card */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --card: 36 22% 88%;
+    --card-foreground: 30 18% 13%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --popover: 40 28% 94%;
+    --popover-foreground: 30 18% 13%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Primary = brand gold, richer to harmonize with cream + espresso */
+    --primary: 42 78% 42%;
+    --primary-foreground: 40 30% 96%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --secondary: 36 22% 88%;
+    --secondary-foreground: 30 18% 13%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 36 22% 88%;
+    --muted-foreground: 30 12% 38%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: 30 16% 32%;
+    --accent-foreground: 30 18% 13%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive: 0 65% 44%;
+    --destructive-foreground: 40 30% 96%;
 
-    --radius: 0.5rem;
+    --border: 30 18% 13% / 0.12;
+    --input: 30 18% 13% / 0.12;
+    --ring: 44 68% 52%;
 
-    --sidebar-background: 0 0% 98%;
+    --radius: 0;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Brand gold family — tuned for warm cream + espresso surfaces */
+    --gold: 42 78% 42%;               /* #BC9418 deep gold */
+    --gold-light: 44 68% 52%;         /* #D4B240 luminous gold */
+    --gold-pale: 46 72% 80%;          /* #F2E2A3 champagne */
+    --border-gold: 44 68% 52% / 0.32;
+    --text-muted: 30 12% 38%;
+    --accent-dim: 30 16% 32%;
 
-    --sidebar-primary: 240 5.9% 10%;
+    /* Dark surface family — navbar / bottom nav cohesion */
+    --ink: 28 14% 9%;                 /* #1A1612 deep espresso */
+    --ink-soft: 28 12% 14%;           /* #261F1A soft espresso */
+    --on-ink: 40 30% 95%;             /* cream text on dark */
+    --on-ink-muted: 42 26% 68%;       /* muted cream on dark */
 
-    --sidebar-primary-foreground: 0 0% 98%;
+    /* Effects */
+    --glow-gold: 0 0 40px hsl(44 68% 52% / 0.15);
+    --gradient-gold: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--gold-light)));
+    --gradient-gold-text: linear-gradient(135deg, #D4B240 0%, #F2E2A3 50%, #BC9418 100%);
+    --gradient-ink: linear-gradient(180deg, hsl(var(--ink)) 0%, hsl(var(--ink-soft)) 100%);
 
-    --sidebar-accent: 240 4.8% 95.9%;
+    /* Fonts */
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Outfit', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
 
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar (shadcn) */
+    --sidebar-background: 40 28% 93%;
+    --sidebar-foreground: 30 18% 13%;
+    --sidebar-primary: 42 78% 42%;
+    --sidebar-primary-foreground: 40 30% 96%;
+    --sidebar-accent: 36 22% 88%;
+    --sidebar-accent-foreground: 30 18% 13%;
+    --sidebar-border: 30 18% 13% / 0.12;
+    --sidebar-ring: 44 68% 52%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    overscroll-behavior: none;
+  }
+
+  ::selection {
+    background: hsl(46 65% 53% / 0.3);
+  }
+
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--gold));
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: var(--font-body);
+    outline: none;
+    background: hsl(28 20% 14% / 0.04);
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: border-color .3s, box-shadow .3s;
+    font-size: 16px;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: hsl(var(--gold-light));
+    box-shadow: 0 0 0 2px hsl(46 65% 53% / 0.08);
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: hsl(var(--text-muted));
+  }
+  /* Inputs on dark (espresso) surfaces — auto-adapt readable placeholder */
+  [data-on-ink="true"] input::placeholder,
+  [data-on-ink="true"] textarea::placeholder {
+    color: hsl(var(--on-ink-muted));
+  }
+  select option {
+    background: hsl(35 25% 87%);
+    color: hsl(var(--foreground));
+  }
+  button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 }
+
+/* ======================================================
+   Animations & utility classes (kept from original)
+   ====================================================== */
+@keyframes dust {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: .5; }
+  100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.gold-text {
+  background: var(--gradient-gold-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(0, 0, 0, 0.15) 50%, transparent 60%);
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity .3s;
+}
+.shimmer-btn:hover::after,
+.shimmer-btn:active::after {
+  opacity: 1;
+  animation: shimmer .6s ease forwards;
+}
+
+.flip-card { perspective: 1200px; }
+.flip-inner {
+  transition: transform .7s cubic-bezier(.23, 1, .32, 1);
+  transform-style: preserve-3d;
+  height: 100%;
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  inset: 0;
+}
+.flip-back { transform: rotateY(180deg); }
+
+.snap-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  gap: 16px;
+  scrollbar-width: none;
+  padding-bottom: 8px;
+}
+.snap-scroll::-webkit-scrollbar { display: none; }
+.snap-item { scroll-snap-align: center; flex-shrink: 0; }
