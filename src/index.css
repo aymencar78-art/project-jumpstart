@@ -98,6 +98,12 @@
     @apply bg-background text-foreground;
     font-family: var(--font-body);
     overscroll-behavior: none;
+    /* Global ~18% upscaling of all UI text. Inline-styled px sizes
+       across the app inherit this through em-based reflow on common
+       elements where possible; remaining px sizes are bumped via the
+       per-component edits. */
+    font-size: 18px;
+    line-height: 1.55;
   }
 
   ::selection {
@@ -134,11 +140,18 @@
   input::placeholder,
   textarea::placeholder {
     color: hsl(var(--text-muted));
+    font-weight: 700;
+    /* ~15% larger than the surrounding input font-size */
+    font-size: 1.15em;
+    opacity: 1;
   }
   /* Inputs on dark (espresso) surfaces — auto-adapt readable placeholder */
   [data-on-ink="true"] input::placeholder,
   [data-on-ink="true"] textarea::placeholder {
     color: hsl(var(--on-ink-muted));
+    font-weight: 700;
+    font-size: 1.15em;
+    opacity: 1;
   }
   select option {
     background: hsl(35 25% 87%);
