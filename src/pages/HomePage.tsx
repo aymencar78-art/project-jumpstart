@@ -14,13 +14,27 @@ const HomePage = ({ setPage, lang, t }: Props) => {
     {/* HERO + full booking form (identical to /booking) */}
     <BookingPage lang={lang} t={t} />
 
-    {/* STATS */}
-    <section style={{ padding: "44px 16px", borderTop: "1px solid hsl(var(--border))", borderBottom: "1px solid hsl(var(--border))" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", maxWidth: "520px", margin: "0 auto" }}>
+    {/* STATS — bigger, premium presentation */}
+    <section style={{ padding: "72px 16px", borderTop: "1px solid hsl(var(--border))", borderBottom: "1px solid hsl(var(--border))", background: "linear-gradient(180deg, hsl(var(--bg-surface)) 0%, hsl(var(--background)) 100%)" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "32px", maxWidth: "1100px", margin: "0 auto" }}>
         {[{ v: "12+", l: t.stat1 }, { v: "8,400+", l: t.stat2 }, { v: "4.97★", l: t.stat3 }, { v: "24/7", l: t.stat4 }].map((s, i) => (
-          <motion.div key={s.v} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} style={{ textAlign: "center" }}>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: "44px", fontWeight: 300 }} className="gold-text">{s.v}</div>
-            <div style={{ fontSize: "12px", letterSpacing: "1.5px", color: "hsl(var(--accent-dim))", textTransform: "uppercase", marginTop: "4px" }}>{s.l}</div>
+          <motion.div
+            key={s.v}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.08 }}
+            style={{
+              textAlign: "center",
+              padding: "28px 18px",
+              background: "rgba(255,255,255,0.55)",
+              border: "1px solid hsl(var(--border-gold))",
+              borderRadius: "18px",
+              boxShadow: "0 6px 20px -10px rgba(0,0,0,0.18)",
+            }}
+          >
+            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(56px, 9vw, 88px)", fontWeight: 500, lineHeight: 1 }} className="gold-text">{s.v}</div>
+            <div style={{ fontSize: "16px", letterSpacing: "2px", color: "hsl(var(--ink))", textTransform: "uppercase", marginTop: "12px", fontWeight: 700 }}>{s.l}</div>
           </motion.div>
         ))}
       </div>
