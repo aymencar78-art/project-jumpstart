@@ -91,13 +91,14 @@ const CsvLocationPicker = forwardRef<HTMLDivElement, Props>(({ value, onChange, 
         placeholder={placeholder}
         style={{
           width: "100%",
-          padding: "12px 14px",
+          padding: "16px 14px",
           background: "#fff",
           border: "1px solid hsl(var(--border))",
           borderRadius: "8px",
           color: "hsl(var(--ink))",
           fontFamily: "var(--font-body)",
-          fontSize: "14px",
+          fontSize: "17px",
+          fontWeight: 600,
           outline: "none",
         }}
       />
