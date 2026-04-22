@@ -38,22 +38,23 @@ import carMonospace from "@/assets/car-monospace.jpg";
 const labelStyle: React.CSSProperties = {
   display: "flex",
   alignItems: "center",
-  gap: "6px",
+  gap: "8px",
   fontFamily: "var(--font-body)",
-  fontSize: "14px",
-  fontWeight: 600,
+  fontSize: "16px",
+  fontWeight: 700,
   color: "hsl(var(--ink))",
-  marginBottom: "8px",
+  marginBottom: "10px",
 };
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  padding: "14px 14px",
+  padding: "16px 14px",
   background: "#fff",
   border: "1px solid hsl(var(--border))",
   borderRadius: "10px",
   color: "hsl(var(--ink))",
   fontFamily: "var(--font-body)",
-  fontSize: "15px",
+  fontSize: "17px",
+  fontWeight: 600,
   outline: "none",
 };
 const inputErrStyle: React.CSSProperties = {
@@ -61,10 +62,11 @@ const inputErrStyle: React.CSSProperties = {
   border: "1px solid hsl(var(--destructive))",
 };
 const errMsgStyle: React.CSSProperties = {
-  fontSize: "12px",
+  fontSize: "14px",
   color: "hsl(var(--destructive))",
   marginTop: "4px",
   fontFamily: "var(--font-body)",
+  fontWeight: 600,
 };
 
 /* ---------- micro-i18n ---------- */
@@ -684,48 +686,82 @@ const BookingPage = ({ lang, t }: Props) => {
               {/* ===================== STEP 2: vehicle + payment + info ===================== */}
               {step === 1 && (
                 <motion.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
-                  {/* trip summary */}
+                  {/* trip summary — descriptive, bigger fonts, details listed under */}
                   <div
                     style={{
-                      background: "hsl(var(--bg-surface))",
-                      border: "1px solid hsl(var(--border))",
-                      borderRadius: "14px",
-                      padding: "16px 18px",
-                      marginBottom: "22px",
+                      background: "linear-gradient(180deg, hsl(var(--bg-surface)) 0%, #fff 100%)",
+                      border: "1px solid hsl(var(--border-gold))",
+                      borderRadius: "16px",
+                      padding: "20px 22px",
+                      marginBottom: "24px",
+                      textAlign: dir === "rtl" ? "right" : "left",
                     }}
                   >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
-                      <div style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "2.5px", color: "hsl(var(--gold))", fontWeight: 700 }}>
-                        {tr(lang, "RÉCAPITULATIF", "TRIP SUMMARY", "ÜBERSICHT", "RESUMEN", "ملخص الرحلة")}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px", gap: "10px", flexDirection: dir === "rtl" ? "row-reverse" : "row" }}>
+                      <div style={{ fontFamily: "var(--font-mono)", fontSize: "13px", letterSpacing: "2.5px", color: "hsl(var(--gold))", fontWeight: 700, textTransform: "uppercase" }}>
+                        {tr(lang, "Récapitulatif du trajet", "Trip summary", "Fahrtübersicht", "Resumen del viaje", "ملخص الرحلة")}
                       </div>
                       <button
                         onClick={() => setStep(0)}
-                        style={{ background: "transparent", border: "none", cursor: "pointer", color: "hsl(var(--ink))", fontSize: "13px", display: "flex", alignItems: "center", gap: "4px", fontWeight: 600 }}
+                        style={{ background: "transparent", border: "none", cursor: "pointer", color: "hsl(var(--ink))", fontSize: "15px", display: "flex", alignItems: "center", gap: "4px", fontWeight: 700 }}
                       >
-                        <ChevronLeft size={14} />
-                        {tr(lang, "Modifier", "Modify", "Ändern", "Modificar", "تعديل")}
+                        <ChevronLeft size={16} />
+                        {tr(lang, "Modifier", "Edit", "Ändern", "Modificar", "تعديل")}
                       </button>
                     </div>
-                    <div style={{ fontSize: "14px", color: "hsl(var(--ink))", lineHeight: 1.7 }}>
-                      <div>📍 {s1.departure} → {s1.destination}</div>
-                      <div>📅 {s1.departureDate} · ⏰ {s1.departureTime}</div>
-                      <div>👥 {totalPax} {tr(lang, "pax", "pax", "Pers.", "pax", "ركاب")} {s1.infants ? `· 👶 ${s1.infants}` : ""} · 🧳 {s1.bags}</div>
+
+                    {/* Headline route line */}
+                    <div
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "clamp(20px, 4vw, 26px)",
+                        fontWeight: 600,
+                        color: "hsl(var(--ink))",
+                        lineHeight: 1.3,
+                        marginBottom: "12px",
+                      }}
+                    >
+                      {dir === "rtl" ? `${s1.destination || "—"} ← ${s1.departure || "—"}` : `${s1.departure || "—"} → ${s1.destination || "—"}`}
+                    </div>
+
+                    {/* Details listed under */}
+                    <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: "8px" }}>
+                      <li style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "16px", color: "hsl(var(--ink))", fontWeight: 500, flexDirection: dir === "rtl" ? "row-reverse" : "row" }}>
+                        <CalendarIcon size={18} style={{ color: "hsl(var(--gold))", flexShrink: 0 }} />
+                        <span>
+                          <strong style={{ fontWeight: 700 }}>{tr(lang, "Date", "Date", "Datum", "Fecha", "التاريخ")} :</strong> {s1.departureDate || "—"}
+                          {" · "}
+                          <strong style={{ fontWeight: 700 }}>{tr(lang, "Heure", "Time", "Uhrzeit", "Hora", "الوقت")} :</strong> {s1.departureTime || "—"}
+                        </span>
+                      </li>
+                      <li style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "16px", color: "hsl(var(--ink))", fontWeight: 500, flexDirection: dir === "rtl" ? "row-reverse" : "row" }}>
+                        <Users size={18} style={{ color: "hsl(var(--gold))", flexShrink: 0 }} />
+                        <span>
+                          <strong style={{ fontWeight: 700 }}>{totalPax}</strong> {tr(lang, "passagers", "passengers", "Passagiere", "pasajeros", "ركاب")}
+                          {s1.infants ? <> · <strong style={{ fontWeight: 700 }}>{s1.infants}</strong> {tr(lang, "bébés", "infants", "Babys", "bebés", "رضّع")}</> : null}
+                          {" · "}
+                          <strong style={{ fontWeight: 700 }}>{s1.bags}</strong> {tr(lang, "bagages", "luggage", "Gepäck", "equipaje", "أمتعة")}
+                        </span>
+                      </li>
                       {route ? (
-                        <div style={{ marginTop: "4px", fontFamily: "var(--font-mono)", fontSize: "12px", color: "hsl(var(--gold))", letterSpacing: "1px" }}>
-                          ↦ {route.distance_km} km · ~{route.duration_min} min
-                        </div>
+                        <li style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "16px", color: "hsl(var(--ink))", fontWeight: 500, flexDirection: dir === "rtl" ? "row-reverse" : "row" }}>
+                          <MapPin size={18} style={{ color: "hsl(var(--gold))", flexShrink: 0 }} />
+                          <span>
+                            <strong style={{ fontWeight: 700 }}>{route.distance_km} km</strong> · {tr(lang, "environ", "around", "ca.", "aprox.", "حوالي")} <strong style={{ fontWeight: 700 }}>{route.duration_min} min</strong>
+                          </span>
+                        </li>
                       ) : (
-                        <div
+                        <li
                           style={{
-                            marginTop: "8px",
-                            padding: "8px 10px",
-                            borderRadius: "8px",
+                            marginTop: "4px",
+                            padding: "12px 14px",
+                            borderRadius: "10px",
                             background: "rgba(212,175,55,0.10)",
                             border: "1px dashed hsl(var(--gold))",
-                            fontFamily: "var(--font-body)",
-                            fontSize: "12px",
+                            fontSize: "15px",
                             color: "hsl(var(--ink))",
-                            lineHeight: 1.5,
+                            lineHeight: 1.55,
+                            fontWeight: 500,
                           }}
                         >
                           ⚠ {tr(
@@ -736,9 +772,9 @@ const BookingPage = ({ lang, t }: Props) => {
                             "Esta ruta no tiene tarifa fija. Envíe la solicitud y le confirmaremos un presupuesto a medida.",
                             "هذا المسار ليس له سعر ثابت. أرسل طلبك وسنؤكد لك عرض سعر مخصص."
                           )}
-                        </div>
+                        </li>
                       )}
-                    </div>
+                    </ul>
                   </div>
 
                   {/* vehicle picker (with photos) */}
@@ -805,47 +841,6 @@ const BookingPage = ({ lang, t }: Props) => {
                     })}
                   </div>
 
-                  {/* payment selector */}
-                  <div style={{ ...labelStyle, marginBottom: "12px", fontSize: "15px" }}>
-                    {tr(lang, "Mode de paiement", "Payment method", "Zahlungsart", "Método de pago", "طريقة الدفع")}
-                  </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
-                    {([
-                      { id: "cash" as const, icon: <Banknote size={20} />, t1: tr(lang, "Cash", "Cash", "Bar", "Efectivo", "نقدًا"), t2: tr(lang, "Au chauffeur", "To the driver", "An den Fahrer", "Al conductor", "للسائق") },
-                      { id: "online" as const, icon: <CreditCard size={20} />, t1: tr(lang, "En ligne", "Online", "Online", "En línea", "عبر الإنترنت"), t2: tr(lang, "Carte sécurisée", "Secure card", "Sichere Karte", "Tarjeta segura", "بطاقة آمنة") },
-                    ]).map((opt) => {
-                      const sel = s2.payment === opt.id;
-                      return (
-                        <button
-                          key={opt.id}
-                          type="button"
-                          onClick={() => setS2((p) => ({ ...p, payment: opt.id }))}
-                          style={{
-                            padding: "16px",
-                            borderRadius: "14px",
-                            border: sel ? "2px solid hsl(var(--gold))" : "2px solid hsl(var(--border))",
-                            background: sel ? "rgba(212,175,55,0.08)" : "#fff",
-                            cursor: "pointer",
-                            textAlign: "left",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "12px",
-                            transition: "all .2s",
-                            boxShadow: sel ? "0 6px 18px -4px rgba(212,175,55,0.4)" : "none",
-                          }}
-                        >
-                          <div style={{ width: 44, height: 44, borderRadius: 12, background: "hsl(var(--ink))", color: "hsl(var(--gold))", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                            {opt.icon}
-                          </div>
-                          <div>
-                            <div style={{ fontFamily: "var(--font-body)", fontSize: "16px", fontWeight: 700, color: "hsl(var(--ink))" }}>{opt.t1}</div>
-                            <div style={{ fontSize: "12px", color: "hsl(var(--text-muted))" }}>{opt.t2}</div>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-
                   {/* client form */}
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "16px" }}>
                     <div>
@@ -892,6 +887,50 @@ const BookingPage = ({ lang, t }: Props) => {
                         {tr(lang, "Commentaires", "Comments", "Kommentare", "Comentarios", "ملاحظات")}
                       </label>
                       <textarea id="c-notes" rows={3} value={s2.notes} maxLength={500} onChange={(e) => setS2((p) => ({ ...p, notes: e.target.value }))} placeholder={t.notes_ph} style={{ ...inputStyle, resize: "none" }} />
+                    </div>
+                  </div>
+
+                  {/* payment selector — placed at the bottom of the last form, just before action buttons */}
+                  <div style={{ borderTop: "1px solid hsl(var(--border))", paddingTop: "20px", marginBottom: "20px" }}>
+                    <div style={{ ...labelStyle, marginBottom: "12px", fontSize: "16px" }}>
+                      {tr(lang, "Mode de paiement", "Payment method", "Zahlungsart", "Método de pago", "طريقة الدفع")}
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                      {([
+                        { id: "cash" as const, icon: <Banknote size={20} />, t1: tr(lang, "Cash", "Cash", "Bar", "Efectivo", "نقدًا"), t2: tr(lang, "Au chauffeur", "To the driver", "An den Fahrer", "Al conductor", "للسائق") },
+                        { id: "online" as const, icon: <CreditCard size={20} />, t1: tr(lang, "En ligne", "Online", "Online", "En línea", "عبر الإنترنت"), t2: tr(lang, "Carte sécurisée", "Secure card", "Sichere Karte", "Tarjeta segura", "بطاقة آمنة") },
+                      ]).map((opt) => {
+                        const sel = s2.payment === opt.id;
+                        return (
+                          <button
+                            key={opt.id}
+                            type="button"
+                            onClick={() => setS2((p) => ({ ...p, payment: opt.id }))}
+                            style={{
+                              padding: "16px",
+                              borderRadius: "14px",
+                              border: sel ? "2px solid hsl(var(--gold))" : "2px solid hsl(var(--border))",
+                              background: sel ? "rgba(212,175,55,0.08)" : "#fff",
+                              cursor: "pointer",
+                              textAlign: dir === "rtl" ? "right" : "left",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "12px",
+                              transition: "all .2s",
+                              boxShadow: sel ? "0 6px 18px -4px rgba(212,175,55,0.4)" : "none",
+                              flexDirection: dir === "rtl" ? "row-reverse" : "row",
+                            }}
+                          >
+                            <div style={{ width: 48, height: 48, borderRadius: 12, background: "hsl(var(--ink))", color: "hsl(var(--gold))", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                              {opt.icon}
+                            </div>
+                            <div>
+                              <div style={{ fontFamily: "var(--font-body)", fontSize: "17px", fontWeight: 700, color: "hsl(var(--ink))" }}>{opt.t1}</div>
+                              <div style={{ fontSize: "13px", color: "hsl(var(--text-muted))", fontWeight: 500 }}>{opt.t2}</div>
+                            </div>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 
