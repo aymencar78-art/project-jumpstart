@@ -94,22 +94,52 @@ const HomePage = ({ setPage, lang, t }: Props) => {
       </button>
     </section>
 
-    {/* FAQ SEO */}
+    {/* FAQ SEO (localized) */}
     <section style={{ padding: "60px 16px", maxWidth: "800px", margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: "40px" }}>
-        <div style={{ fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "4px", color: "hsl(var(--gold))", marginBottom: "10px" }}>QUESTIONS FRÉQUENTES</div>
-        <h2 style={{ fontFamily: "var(--font-display)", fontSize: "32px", fontWeight: 300 }}>Tout savoir sur nos <span className="gold-text">Transferts</span></h2>
+        <div style={{ fontFamily: "var(--font-mono)", fontSize: "12px", letterSpacing: "4px", color: "hsl(var(--gold))", marginBottom: "10px", fontWeight: 700 }}>
+          {lang === "FR" ? "QUESTIONS FRÉQUENTES" : lang === "EN" ? "FREQUENTLY ASKED" : lang === "DE" ? "HÄUFIGE FRAGEN" : lang === "ES" ? "PREGUNTAS FRECUENTES" : "أسئلة شائعة"}
+        </div>
+        <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px,5vw,38px)", fontWeight: 400 }}>
+          {lang === "FR" ? <>Tout savoir sur nos <span className="gold-text">Transferts</span></>
+            : lang === "EN" ? <>Everything about our <span className="gold-text">Transfers</span></>
+            : lang === "DE" ? <>Alles über unsere <span className="gold-text">Transfers</span></>
+            : lang === "ES" ? <>Todo sobre nuestros <span className="gold-text">Traslados</span></>
+            : <><span className="gold-text">كل ما تحتاج معرفته</span> عن خدمات النقل</>}
+        </h2>
       </div>
       <div style={{ display: "grid", gap: "16px" }}>
-        {[
-          { q: "Quel est le prix d'un transfert Tunis-Hammamet ?", a: "Le prix fixe pour un transfert privé de l'aéroport de Tunis vers Hammamet commence à partir de 39€ pour un hatchback." },
-          { q: "Puis-je payer en cash au chauffeur ?", a: "Oui. Vous choisissez entre paiement en ligne sécurisé ou paiement cash directement au chauffeur lors de la course." },
-          { q: "Combien de temps à l'avance dois-je réserver ?", a: "Une réservation doit être effectuée au minimum 4 heures avant l'heure de prise en charge." },
-          { q: "Comment retrouver mon chauffeur à l'aéroport ?", a: "Votre chauffeur vous attendra dans le hall des arrivées avec une pancarte à votre nom. Nous suivons votre vol en temps réel." },
-        ].map((item, idx) => (
-          <div key={idx} style={{ background: "hsl(var(--bg-card))", border: "1px solid hsl(var(--border))", padding: "20px", borderRadius: "10px" }}>
-            <h3 style={{ fontSize: "15px", color: "hsl(var(--gold-light))", marginBottom: "8px", fontWeight: 600 }}>Q: {item.q}</h3>
-            <p style={{ fontSize: "14px", color: "hsl(var(--text-muted))", lineHeight: 1.6 }}>{item.a}</p>
+        {(
+          lang === "FR" ? [
+            { q: "Quel est le prix d'un transfert Tunis-Hammamet ?", a: "Le prix fixe pour un transfert privé de l'aéroport de Tunis vers Hammamet commence à partir de 39€ pour un hatchback." },
+            { q: "Puis-je payer en cash au chauffeur ?", a: "Oui. Vous choisissez entre paiement en ligne sécurisé ou paiement cash directement au chauffeur lors de la course." },
+            { q: "Combien de temps à l'avance dois-je réserver ?", a: "Une réservation doit être effectuée au minimum 4 heures avant l'heure de prise en charge." },
+            { q: "Comment retrouver mon chauffeur à l'aéroport ?", a: "Votre chauffeur vous attendra dans le hall des arrivées avec une pancarte à votre nom. Nous suivons votre vol en temps réel." },
+          ] : lang === "EN" ? [
+            { q: "How much is a Tunis–Hammamet transfer?", a: "The fixed price for a private transfer from Tunis Airport to Hammamet starts at €39 for a hatchback." },
+            { q: "Can I pay the driver in cash?", a: "Yes. You can choose between secure online payment or paying the driver directly in cash on the day." },
+            { q: "How far in advance should I book?", a: "Bookings must be made at least 4 hours before the pickup time." },
+            { q: "How will I find my driver at the airport?", a: "Your driver will wait in the arrivals hall with a sign showing your name. We track your flight in real time." },
+          ] : lang === "DE" ? [
+            { q: "Was kostet ein Transfer Tunis–Hammamet?", a: "Der Festpreis für einen privaten Transfer vom Flughafen Tunis nach Hammamet beginnt bei 39 € für ein Hatchback." },
+            { q: "Kann ich den Fahrer bar bezahlen?", a: "Ja. Sie wählen zwischen sicherer Online-Zahlung und Barzahlung direkt beim Fahrer." },
+            { q: "Wie weit im Voraus muss ich buchen?", a: "Buchungen müssen mindestens 4 Stunden vor der Abholzeit erfolgen." },
+            { q: "Wie finde ich meinen Fahrer am Flughafen?", a: "Ihr Fahrer wartet in der Ankunftshalle mit einem Schild mit Ihrem Namen. Wir verfolgen Ihren Flug in Echtzeit." },
+          ] : lang === "ES" ? [
+            { q: "¿Cuánto cuesta un traslado Túnez–Hammamet?", a: "El precio fijo para un traslado privado desde el aeropuerto de Túnez hasta Hammamet comienza en 39 € para un hatchback." },
+            { q: "¿Puedo pagar al conductor en efectivo?", a: "Sí. Puede elegir entre pago en línea seguro o pago al conductor directamente en efectivo." },
+            { q: "¿Con cuánta antelación debo reservar?", a: "Las reservas deben hacerse al menos 4 horas antes de la hora de recogida." },
+            { q: "¿Cómo encontraré a mi conductor en el aeropuerto?", a: "Su conductor le esperará en la sala de llegadas con un cartel con su nombre. Hacemos seguimiento de su vuelo en tiempo real." },
+          ] : [
+            { q: "ما هو سعر النقل من تونس إلى الحمامات؟", a: "السعر الثابت للنقل الخاص من مطار تونس إلى الحمامات يبدأ من 39€ لسيارة هاتشباك." },
+            { q: "هل يمكنني الدفع نقداً للسائق؟", a: "نعم. يمكنك الاختيار بين الدفع الآمن عبر الإنترنت أو الدفع نقداً مباشرة للسائق." },
+            { q: "كم من الوقت يجب أن أحجز مسبقاً؟", a: "يجب الحجز قبل 4 ساعات على الأقل من وقت الاستلام." },
+            { q: "كيف أجد سائقي في المطار؟", a: "سينتظرك السائق في صالة الوصول حاملاً لافتة باسمك. نحن نتابع رحلتك في الوقت الفعلي." },
+          ]
+        ).map((item, idx) => (
+          <div key={idx} style={{ background: "hsl(var(--bg-card))", border: "1px solid hsl(var(--border))", padding: "22px", borderRadius: "12px" }}>
+            <h3 style={{ fontSize: "17px", color: "hsl(var(--ink))", marginBottom: "10px", fontWeight: 700 }}>Q: {item.q}</h3>
+            <p style={{ fontSize: "16px", color: "hsl(var(--text-muted))", lineHeight: 1.65 }}>{item.a}</p>
           </div>
         ))}
       </div>
