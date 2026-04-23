@@ -68,7 +68,7 @@ export const EXCURSIONS: Excursion[] = [
       ES: "Un día completo entre artesanía bereber, medina pintoresca, acantilados esculpidos por el mar y baños termales ancestrales.",
       AR: "يوم كامل بين الحرف البربرية، المدينة العتيقة الخلابة، المنحدرات البحرية والحمامات الحارة العريقة.",
     },
-    duration: { FR: "1 jour", EN: "1 day", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
+    duration: { FR: "1 jour", EN: "1 day", IT: "1 giorno", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
     priceRows: [
       { fromKey: "tunis", price1to4: 133, price4to8: 167 },
       { fromKey: "hammamet_nabeul", price1to4: 95, price4to8: 137 },
@@ -102,7 +102,7 @@ export const EXCURSIONS: Excursion[] = [
       ES: "Tres ciudades milenarias en un día: la santa Kairouan, el colosal anfiteatro de El Jem y el encanto mediterráneo de Sousse.",
       AR: "ثلاث مدن أثرية في يوم واحد: القيروان المقدسة، مدرج الجم العملاق وسحر سوسة المتوسطي.",
     },
-    duration: { FR: "1 jour", EN: "1 day", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
+    duration: { FR: "1 jour", EN: "1 day", IT: "1 giorno", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
     priceRows: [
       { fromKey: "hammamet_nabeul", price1to4: 142, price4to8: 167 },
       { fromKey: "sousse", price1to4: 142, price4to8: 167 },
@@ -136,7 +136,7 @@ export const EXCURSIONS: Excursion[] = [
       ES: "La esencia de la capital: vibrantes zocos de la medina, las ruinas púnicas de Cartago y el inolvidable azul y blanco de Sidi Bou Saïd.",
       AR: "جوهر العاصمة: أسواق المدينة العتيقة النابضة، آثار قرطاج البونية، والأزرق والأبيض الخلاب لسيدي بوسعيد.",
     },
-    duration: { FR: "1 jour", EN: "1 day", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
+    duration: { FR: "1 jour", EN: "1 day", IT: "1 giorno", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
     priceRows: [
       { fromKey: "hammamet_nabeul", price1to4: 95, price4to8: 147 },
       { fromKey: "sousse_monastir", price1to4: 133, price4to8: 167 },
@@ -170,7 +170,7 @@ export const EXCURSIONS: Excursion[] = [
       ES: "Una inmersión en el Imperio Romano: la majestuosa Dougga, declarada Patrimonio UNESCO, y las fascinantes casas subterráneas de Bulla Regia.",
       AR: "غوص في الإمبراطورية الرومانية: دڨة المهيبة المُصنّفة من اليونسكو ومنازل بلا ريجيا الجوفية المذهلة.",
     },
-    duration: { FR: "1 jour", EN: "1 day", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
+    duration: { FR: "1 jour", EN: "1 day", IT: "1 giorno", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
     priceRows: [
       { fromKey: "hammamet_nabeul", price1to4: 209, price4to8: 236 },
       { fromKey: "sousse_monastir", price1to4: 218, price4to8: 246 },
@@ -204,7 +204,7 @@ export const EXCURSIONS: Excursion[] = [
       ES: "Media jornada mágica en familia: safari africano, más de 50 especies y espectáculos inolvidables en el corazón de Túnez.",
       AR: "نصف يوم ساحر مع العائلة: سفاري أفريقي، أكثر من 50 نوعًا وعروض لا تُنسى في قلب تونس.",
     },
-    duration: { FR: "Demi-journée", EN: "Half-day", DE: "Halbtag", ES: "Medio día", AR: "نصف يوم" },
+    duration: { FR: "Demi-journée", EN: "Half-day", IT: "Mezza giornata", DE: "Halbtag", ES: "Medio día", AR: "نصف يوم" },
     priceRows: [
       { fromKey: "hammamet_nabeul", price1to4: 72, price4to8: 119 },
       { fromKey: "sousse", price1to4: 72, price4to8: 119 },
