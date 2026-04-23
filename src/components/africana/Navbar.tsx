@@ -67,6 +67,7 @@ const Navbar = ({ page, setPage, lang, setLang, scrolled }: Props) => {
               <span>AFRICA<span className="gold-text">NA</span></span>
               <span style={{ display: "inline-block", width: "6px", height: "6px", background: "hsl(var(--gold-light))", transform: "rotate(45deg)" }} />
             </div>
+            <div style={{ fontSize: "8px", letterSpacing: "3px", color: "hsl(var(--gold-light))", marginTop: "1px", textTransform: "uppercase", fontWeight: 600 }}>Transfert Agency</div>
           </div>
         </div>
 
