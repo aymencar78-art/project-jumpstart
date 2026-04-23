@@ -731,7 +731,7 @@ const BookingPage = ({ lang, t }: Props) => {
                         <li style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "16px", color: "hsl(var(--ink))", fontWeight: 500, flexDirection: dir === "rtl" ? "row-reverse" : "row" }}>
                           <MapPin size={18} style={{ color: "hsl(var(--gold))", flexShrink: 0 }} />
                           <span>
-                            <strong style={{ fontWeight: 700 }}>{route.distance_km} km</strong> · {tr(lang, "environ", "around", "ca.", "aprox.", "حوالي")} <strong style={{ fontWeight: 700 }}>{route.duration_min} min</strong>
+                            <strong style={{ fontWeight: 700 }}>{route.distance_km} km</strong> · {tr(lang, "environ", "around", "ca.", "aprox.", "حوالي")} <strong style={{ fontWeight: 700 }}>{fmtDuration(route.duration_min)}</strong>
                           </span>
                         </li>
                       ) : (
