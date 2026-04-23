@@ -624,68 +624,9 @@ const BookingPage = ({ lang, t }: Props) => {
                     {tr(lang, "Réservation possible 4h à l'avance minimum.", "Booking must be at least 4 hours in advance.", "Buchung mindestens 4 Std. im Voraus.", "Reserva con al menos 4h de antelación.", "يجب الحجز قبل 4 ساعات على الأقل.")}
                   </p>
 
-                  {/* passengers (merged from old step 2) */}
-                  <div style={{ borderTop: "1px solid hsl(var(--border))", paddingTop: "20px", marginBottom: "16px" }}>
-                    <div style={{ ...labelStyle, marginBottom: "12px" }}>
-                      <Users size={16} style={{ color: "hsl(var(--gold))" }} />
-                      {tr(lang, "Passagers & bagages", "Passengers & luggage", "Passagiere & Gepäck", "Pasajeros y equipaje", "الركاب والأمتعة")}
-                    </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-                      {(
-                        [
-                          { k: "adults", icon: <Users size={14} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Adultes", "Adults", "Erwachsene", "Adultos", "بالغون"), min: 1, max: 20 },
-                          { k: "children", icon: <Users size={14} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Enfants (2–12)", "Children (2–12)", "Kinder (2–12)", "Niños (2–12)", "أطفال (2–12)"), min: 0, max: 20 },
-                          { k: "infants", icon: <Baby size={14} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Bébés (0–2)", "Infants (0–2)", "Babys (0–2)", "Bebés (0–2)", "رضّع (0–2)"), min: 0, max: 10 },
-                          { k: "bags", icon: <Briefcase size={14} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Bagages", "Luggage", "Gepäck", "Equipaje", "أمتعة"), min: 0, max: 20 },
-                        ] as const
-                      ).map((f) => (
-                        <div key={f.k}>
-                          <label htmlFor={`f-${f.k}`} style={{ ...labelStyle, fontSize: "13px" }}>
-                            {f.icon}
-                            {f.l}
-                          </label>
-                          <input
-                            id={`f-${f.k}`}
-                            type="number"
-                            min={f.min}
-                            max={f.max}
-                            value={s1[f.k]}
-                            onChange={(e) => {
-                              const n = Math.max(f.min, Math.min(f.max, parseInt(e.target.value || "0", 10)));
-                              setS1((p) => ({ ...p, [f.k]: n }));
-                            }}
-                            style={inputStyle}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                    {tooMany && (
-                      <div
-                        style={{
-                          background: "hsl(var(--destructive) / 0.08)",
-                          border: "1px solid hsl(var(--destructive))",
-                          color: "hsl(var(--destructive))",
-                          padding: "10px 14px",
-                          borderRadius: "8px",
-                          fontSize: "13px",
-                          marginTop: "12px",
-                        }}
-                      >
-                        {tr(
-                          lang,
-                          "Maximum 8 passagers (adultes + enfants).",
-                          "Maximum 8 passengers (adults + children).",
-                          "Maximal 8 Passagiere (Erwachsene + Kinder).",
-                          "Máximo 8 pasajeros (adultos + niños).",
-                          "الحد الأقصى 8 ركاب (بالغون + أطفال)."
-                        )}
-                      </div>
-                    )}
-                  </div>
-
                   <button
                     className="shimmer-btn"
-                    onClick={goStep1Next}
+                    onClick={goStep0Next}
                     style={{
                       width: "100%",
                       padding: "18px",
@@ -704,9 +645,216 @@ const BookingPage = ({ lang, t }: Props) => {
                       boxShadow: "0 10px 24px -8px rgba(212,175,55,0.55)",
                     }}
                   >
-                    {tr(lang, "Voir les véhicules", "See vehicles", "Fahrzeuge anzeigen", "Ver vehículos", "اعرض السيارات")}
+                    {tr(lang, "Continuer", "Continue", "Weiter", "Continuar", "متابعة")}
                     <ArrowRight size={18} />
                   </button>
+                </motion.div>
+              )}
+
+              {/* ===================== STEP 1: passengers & luggage (mobile-friendly counters) ===================== */}
+              {step === 1 && (
+                <motion.div key="s1b" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                  <div style={{ marginBottom: "20px" }}>
+                    <div style={{ ...labelStyle, marginBottom: "6px", fontSize: "15px" }}>
+                      <Users size={18} style={{ color: "hsl(var(--gold))" }} />
+                      {tr(lang, "Qui voyage avec vous ?", "Who's travelling with you?", "Wer reist mit?", "¿Quién viaja con usted?", "من يسافر معك؟")}
+                    </div>
+                    <p style={{ fontSize: "13px", color: "hsl(var(--text-muted))", margin: 0, fontWeight: 500 }}>
+                      {tr(lang, "Touchez + ou − pour ajuster.", "Tap + or − to adjust.", "Tippen Sie + oder − zum Anpassen.", "Toque + o − para ajustar.", "اضغط + أو − للتعديل.")}
+                    </p>
+                  </div>
+
+                  <div style={{ display: "grid", gap: "10px", marginBottom: "16px" }}>
+                    {(
+                      [
+                        { k: "adults", icon: <Users size={20} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Adultes", "Adults", "Erwachsene", "Adultos", "بالغون"), sub: tr(lang, "13 ans et +", "13 yrs and over", "Ab 13 Jahren", "13 años y más", "13 سنة فأكثر"), min: 1, max: 20 },
+                        { k: "children", icon: <Users size={20} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Enfants", "Children", "Kinder", "Niños", "أطفال"), sub: tr(lang, "2 à 12 ans", "2 to 12 yrs", "2 bis 12 Jahre", "2 a 12 años", "من 2 إلى 12 سنة"), min: 0, max: 20 },
+                        { k: "infants", icon: <Baby size={20} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Bébés", "Infants", "Babys", "Bebés", "رضّع"), sub: tr(lang, "0 à 2 ans", "0 to 2 yrs", "0 bis 2 Jahre", "0 a 2 años", "من 0 إلى 2 سنة"), min: 0, max: 10 },
+                        { k: "bags", icon: <Briefcase size={20} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Bagages", "Luggage", "Gepäck", "Equipaje", "أمتعة"), sub: tr(lang, "Valises & sacs", "Suitcases & bags", "Koffer & Taschen", "Maletas y bolsas", "حقائب وأكياس"), min: 0, max: 20 },
+                      ] as const
+                    ).map((f) => {
+                      const value = s1[f.k];
+                      const dec = () => setS1((p) => ({ ...p, [f.k]: Math.max(f.min, p[f.k] - 1) }));
+                      const inc = () => setS1((p) => ({ ...p, [f.k]: Math.min(f.max, p[f.k] + 1) }));
+                      const decDisabled = value <= f.min;
+                      const incDisabled = value >= f.max;
+                      return (
+                        <div
+                          key={f.k}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: "12px",
+                            padding: "14px 16px",
+                            background: "#fff",
+                            border: "1px solid hsl(var(--border))",
+                            borderRadius: "14px",
+                            boxShadow: "0 1px 3px -1px rgba(0,0,0,0.04)",
+                            flexDirection: dir === "rtl" ? "row-reverse" : "row",
+                          }}
+                        >
+                          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexDirection: dir === "rtl" ? "row-reverse" : "row" }}>
+                            <div
+                              style={{
+                                width: 44,
+                                height: 44,
+                                borderRadius: 12,
+                                background: "rgba(212,175,55,0.12)",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                flexShrink: 0,
+                              }}
+                            >
+                              {f.icon}
+                            </div>
+                            <div style={{ textAlign: dir === "rtl" ? "right" : "left" }}>
+                              <div style={{ fontFamily: "var(--font-body)", fontSize: "16px", fontWeight: 700, color: "hsl(var(--ink))" }}>{f.l}</div>
+                              <div style={{ fontSize: "12px", color: "hsl(var(--text-muted))", fontWeight: 500 }}>{f.sub}</div>
+                            </div>
+                          </div>
+                          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+                            <button
+                              type="button"
+                              onClick={dec}
+                              disabled={decDisabled}
+                              aria-label={tr(lang, "Diminuer", "Decrease", "Verringern", "Disminuir", "تقليل")}
+                              style={{
+                                width: 40,
+                                height: 40,
+                                borderRadius: "50%",
+                                border: "1.5px solid hsl(var(--border))",
+                                background: decDisabled ? "hsl(var(--bg-surface))" : "#fff",
+                                color: decDisabled ? "hsl(var(--text-muted))" : "hsl(var(--ink))",
+                                cursor: decDisabled ? "not-allowed" : "pointer",
+                                fontSize: "22px",
+                                fontWeight: 600,
+                                lineHeight: 1,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                userSelect: "none",
+                                touchAction: "manipulation",
+                              }}
+                            >
+                              −
+                            </button>
+                            <div
+                              style={{
+                                minWidth: 28,
+                                textAlign: "center",
+                                fontFamily: "var(--font-body)",
+                                fontSize: "20px",
+                                fontWeight: 700,
+                                color: "hsl(var(--ink))",
+                                fontVariantNumeric: "tabular-nums",
+                              }}
+                            >
+                              {value}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={inc}
+                              disabled={incDisabled}
+                              aria-label={tr(lang, "Augmenter", "Increase", "Erhöhen", "Aumentar", "زيادة")}
+                              style={{
+                                width: 40,
+                                height: 40,
+                                borderRadius: "50%",
+                                border: "1.5px solid hsl(var(--gold))",
+                                background: incDisabled ? "hsl(var(--bg-surface))" : "linear-gradient(135deg,hsl(var(--gold)),hsl(var(--gold-light)))",
+                                color: incDisabled ? "hsl(var(--text-muted))" : "hsl(var(--ink))",
+                                cursor: incDisabled ? "not-allowed" : "pointer",
+                                fontSize: "22px",
+                                fontWeight: 700,
+                                lineHeight: 1,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                userSelect: "none",
+                                touchAction: "manipulation",
+                              }}
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {tooMany && (
+                    <div
+                      style={{
+                        background: "hsl(var(--destructive) / 0.08)",
+                        border: "1px solid hsl(var(--destructive))",
+                        color: "hsl(var(--destructive))",
+                        padding: "10px 14px",
+                        borderRadius: "8px",
+                        fontSize: "13px",
+                        marginBottom: "12px",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {tr(
+                        lang,
+                        "Maximum 8 passagers (adultes + enfants).",
+                        "Maximum 8 passengers (adults + children).",
+                        "Maximal 8 Passagiere (Erwachsene + Kinder).",
+                        "Máximo 8 pasajeros (adultos + niños).",
+                        "الحد الأقصى 8 ركاب (بالغون + أطفال)."
+                      )}
+                    </div>
+                  )}
+
+                  <div style={{ display: "flex", gap: "12px" }}>
+                    <button
+                      onClick={() => setStep(0)}
+                      style={{
+                        flexShrink: 0,
+                        padding: "16px 22px",
+                        background: "#fff",
+                        border: "1px solid hsl(var(--border))",
+                        borderRadius: "10px",
+                        cursor: "pointer",
+                        fontFamily: "var(--font-body)",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        color: "hsl(var(--ink))",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                      }}
+                    >
+                      <ArrowLeft size={16} />
+                      {tr(lang, "Retour", "Back", "Zurück", "Atrás", "رجوع")}
+                    </button>
+                    <button
+                      className="shimmer-btn"
+                      onClick={goStep1Next}
+                      style={{
+                        flex: 1,
+                        padding: "18px",
+                        background: "linear-gradient(135deg,hsl(var(--gold)),hsl(var(--gold-light)))",
+                        border: "none",
+                        borderRadius: "12px",
+                        cursor: "pointer",
+                        fontFamily: "var(--font-body)",
+                        fontSize: "17px",
+                        fontWeight: 700,
+                        color: "hsl(var(--ink))",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "10px",
+                        boxShadow: "0 10px 24px -8px rgba(212,175,55,0.55)",
+                      }}
+                    >
+                      {tr(lang, "Voir les véhicules", "See vehicles", "Fahrzeuge anzeigen", "Ver vehículos", "اعرض السيارات")}
+                      <ArrowRight size={18} />
+                    </button>
+                  </div>
                 </motion.div>
               )}
 
