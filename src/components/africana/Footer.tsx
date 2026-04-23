@@ -24,7 +24,7 @@ const Footer = ({ setPage, lang, t }: Props) => {
       ],
     },
     {
-      title: "DESTINATIONS",
+      title: ({ FR: "DESTINATIONS", EN: "DESTINATIONS", IT: "DESTINAZIONI", DE: "ZIELE", ES: "DESTINOS", AR: "الوجهات" } as Record<Lang, string>)[lang],
       links: [
         { l: "Hammamet", p: "booking" as PageKey },
         { l: "Sousse", p: "booking" as PageKey },

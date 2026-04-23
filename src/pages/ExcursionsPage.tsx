@@ -181,7 +181,7 @@ const ExcursionsPage = ({ setPage, lang, t }: Props) => {
             {/* Arrows */}
             <button
               onClick={prevImg}
-              aria-label="Previous image"
+              aria-label={({ FR: "Image précédente", EN: "Previous image", IT: "Immagine precedente", DE: "Vorheriges Bild", ES: "Imagen anterior", AR: "الصورة السابقة" } as Record<Lang, string>)[lang]}
               style={{
                 position: "absolute",
                 left: 16,
@@ -204,7 +204,7 @@ const ExcursionsPage = ({ setPage, lang, t }: Props) => {
             </button>
             <button
               onClick={nextImg}
-              aria-label="Next image"
+              aria-label={({ FR: "Image suivante", EN: "Next image", IT: "Immagine successiva", DE: "Nächstes Bild", ES: "Imagen siguiente", AR: "الصورة التالية" } as Record<Lang, string>)[lang]}
               style={{
                 position: "absolute",
                 right: 16,

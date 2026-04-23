@@ -258,7 +258,7 @@ const Navbar = ({ page, setPage, lang, setLang, scrolled }: Props) => {
 
             {/* Contact block */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.42 }} style={{ marginTop: "24px", display: "grid", gap: "8px" }}>
-              <div style={{ fontSize: "9px", letterSpacing: "3px", color: "hsl(var(--gold))", marginBottom: "4px" }}>CONTACT</div>
+              <div style={{ fontSize: "9px", letterSpacing: "3px", color: "hsl(var(--gold))", marginBottom: "4px" }}>{({ FR: "CONTACT", EN: "CONTACT", IT: "CONTATTO", DE: "KONTAKT", ES: "CONTACTO", AR: "اتصل بنا" } as Record<Lang, string>)[lang]}</div>
               {[
                 { Icon: Phone, label: "+216 27 906 446", href: "tel:+21627906446", color: "hsl(var(--gold-light))" },
                 { Icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/21627906446", color: "#25D366" },
