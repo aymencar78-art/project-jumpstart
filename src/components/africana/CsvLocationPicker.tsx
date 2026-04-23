@@ -103,7 +103,7 @@ const CsvLocationPicker = forwardRef<HTMLDivElement, Props>(({ value, onChange, 
           borderRadius: "8px",
           color: "hsl(var(--ink))",
           fontFamily: "var(--font-body)",
-          fontSize: "21px",
+          fontSize: "17px",
           fontWeight: 700,
           outline: "none",
         }}
