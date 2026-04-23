@@ -80,11 +80,11 @@ const ContactPage = ({ setPage, lang, t }: Props) => {
   }
 
   return (
-    <div style={{ minHeight: "100vh", paddingTop: "64px", padding: "40px 16px 120px" }} dir={dir}>
+    <div style={{ minHeight: "100vh", padding: "104px 16px 120px" }} dir={dir}>
       <div style={{ maxWidth: "560px", margin: "0 auto" }}>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <div style={{ textAlign: "center", marginBottom: "28px" }}>
-            <div style={{ display: "inline-flex", width: "56px", height: "56px", borderRadius: "50%", border: "1px solid hsl(var(--gold))", alignItems: "center", justifyContent: "center", marginBottom: "12px", boxShadow: "0 0 18px hsl(var(--gold) / .25)" }}>
+            <div style={{ display: "inline-flex", width: "56px", height: "56px", borderRadius: "50%", border: "1px solid hsl(var(--gold))", alignItems: "center", justifyContent: "center", marginBottom: "14px", boxShadow: "0 0 18px hsl(var(--gold) / .25)" }}>
               <Phone size={22} color="hsl(var(--gold-light))" strokeWidth={1.8} />
             </div>
             <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px,7vw,40px)", fontWeight: 300, marginBottom: "8px" }}>{t.contact_title}</h1>
