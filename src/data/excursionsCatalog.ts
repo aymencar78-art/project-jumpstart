@@ -47,6 +47,7 @@ export const EXCURSIONS: Excursion[] = [
     title: {
       FR: "Excursion Cap Bon",
       EN: "Cap Bon Excursion",
+      IT: "Escursione a Cap Bon",
       DE: "Ausflug Cap Bon",
       ES: "Excursión Cap Bon",
       AR: "رحلة الوطن القبلي",
@@ -54,6 +55,7 @@ export const EXCURSIONS: Excursion[] = [
     destinations: {
       FR: "Hammamet (Médina) · Nabeul (Artisanat & Poterie) · Haouaria (Grottes) · Korbous (Sources thermales)",
       EN: "Hammamet (Medina) · Nabeul (Crafts & Pottery) · Haouaria (Caves) · Korbous (Thermal springs)",
+      IT: "Hammamet (Medina) · Nabeul (Artigianato & Ceramica) · Haouaria (Grotte) · Korbous (Sorgenti termali)",
       DE: "Hammamet (Medina) · Nabeul (Kunsthandwerk & Keramik) · Haouaria (Grotten) · Korbous (Thermalquellen)",
       ES: "Hammamet (Medina) · Nabeul (Artesanía y cerámica) · Haouaria (Grutas) · Korbous (Termas)",
       AR: "الحمامات (المدينة العتيقة) · نابل (الحرف والفخار) · هوارية (المغارات) · قربص (الينابيع الحارة)",
@@ -61,11 +63,12 @@ export const EXCURSIONS: Excursion[] = [
     description: {
       FR: "Une journée riche entre artisanat berbère, médina pittoresque, falaises sculptées par la mer et bains thermaux ancestraux.",
       EN: "A full day between Berber craftsmanship, a picturesque medina, sea-carved cliffs and ancestral thermal baths.",
+      IT: "Una giornata intera tra artigianato berbero, una medina pittoresca, scogliere modellate dal mare e antichi bagni termali.",
       DE: "Ein voller Tag zwischen Berberhandwerk, malerischer Medina, vom Meer geformten Klippen und uralten Thermalbädern.",
       ES: "Un día completo entre artesanía bereber, medina pintoresca, acantilados esculpidos por el mar y baños termales ancestrales.",
       AR: "يوم كامل بين الحرف البربرية، المدينة العتيقة الخلابة، المنحدرات البحرية والحمامات الحارة العريقة.",
     },
-    duration: { FR: "1 jour", EN: "1 day", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
+    duration: { FR: "1 jour", EN: "1 day", IT: "1 giorno", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
     priceRows: [
       { fromKey: "tunis", price1to4: 133, price4to8: 167 },
       { fromKey: "hammamet_nabeul", price1to4: 95, price4to8: 137 },
@@ -78,6 +81,7 @@ export const EXCURSIONS: Excursion[] = [
     title: {
       FR: "Kairouan, El Jem & Sousse",
       EN: "Kairouan, El Jem & Sousse",
+      IT: "Kairouan, El Jem e Sousse",
       DE: "Kairouan, El Jem & Sousse",
       ES: "Kairouan, El Jem y Sousse",
       AR: "القيروان، الجم وسوسة",
@@ -85,6 +89,7 @@ export const EXCURSIONS: Excursion[] = [
     destinations: {
       FR: "Kairouan (Grande Mosquée) · El Jem (Amphithéâtre romain) · Sousse (Médina/Ribat) · Port El Kantaoui",
       EN: "Kairouan (Great Mosque) · El Jem (Roman Amphitheatre) · Sousse (Medina/Ribat) · Port El Kantaoui",
+      IT: "Kairouan (Grande Moschea) · El Jem (Anfiteatro romano) · Sousse (Medina/Ribat) · Port El Kantaoui",
       DE: "Kairouan (Große Moschee) · El Jem (Römisches Amphitheater) · Sousse (Medina/Ribat) · Port El Kantaoui",
       ES: "Kairouan (Gran Mezquita) · El Jem (Anfiteatro romano) · Sousse (Medina/Ribat) · Port El Kantaoui",
       AR: "القيروان (الجامع الكبير) · الجم (المدرّج الروماني) · سوسة (المدينة/الرباط) · القنطاوي",
@@ -92,11 +97,12 @@ export const EXCURSIONS: Excursion[] = [
     description: {
       FR: "Trois cités millénaires en une journée : la sainte Kairouan, le colossal amphithéâtre d'El Jem et le charme méditerranéen de Sousse.",
       EN: "Three millennia-old cities in one day: holy Kairouan, the colossal El Jem amphitheatre and the Mediterranean charm of Sousse.",
+      IT: "Tre città millenarie in un giorno: la santa Kairouan, il colossale anfiteatro di El Jem e il fascino mediterraneo di Sousse.",
       DE: "Drei jahrtausendealte Städte an einem Tag: das heilige Kairouan, das gewaltige Amphitheater von El Jem und der mediterrane Charme von Sousse.",
       ES: "Tres ciudades milenarias en un día: la santa Kairouan, el colosal anfiteatro de El Jem y el encanto mediterráneo de Sousse.",
       AR: "ثلاث مدن أثرية في يوم واحد: القيروان المقدسة، مدرج الجم العملاق وسحر سوسة المتوسطي.",
     },
-    duration: { FR: "1 jour", EN: "1 day", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
+    duration: { FR: "1 jour", EN: "1 day", IT: "1 giorno", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
     priceRows: [
       { fromKey: "hammamet_nabeul", price1to4: 142, price4to8: 167 },
       { fromKey: "sousse", price1to4: 142, price4to8: 167 },
@@ -109,6 +115,7 @@ export const EXCURSIONS: Excursion[] = [
     title: {
       FR: "Excursion Grand Tunis",
       EN: "Grand Tunis Excursion",
+      IT: "Escursione a Grande Tunisi",
       DE: "Ausflug Groß-Tunis",
       ES: "Excursión Grand Tunis",
       AR: "رحلة تونس الكبرى",
@@ -116,6 +123,7 @@ export const EXCURSIONS: Excursion[] = [
     destinations: {
       FR: "Médina de Tunis · Site archéologique de Carthage · Sidi Bou Saïd",
       EN: "Tunis Medina · Carthage archaeological site · Sidi Bou Saïd",
+      IT: "Medina di Tunisi · Sito archeologico di Cartagine · Sidi Bou Saïd",
       DE: "Medina von Tunis · Archäologische Stätte Karthago · Sidi Bou Saïd",
       ES: "Medina de Túnez · Sitio arqueológico de Cartago · Sidi Bou Saïd",
       AR: "المدينة العتيقة بتونس · موقع قرطاج الأثري · سيدي بوسعيد",
@@ -123,11 +131,12 @@ export const EXCURSIONS: Excursion[] = [
     description: {
       FR: "L'essence de la capitale : souks animés de la médina, vestiges puniques de Carthage et le bleu et blanc inoubliable de Sidi Bou Saïd.",
       EN: "The essence of the capital: vibrant medina souks, the Punic ruins of Carthage and the unforgettable blue-and-white of Sidi Bou Saïd.",
+      IT: "L'essenza della capitale: vivaci suk della medina, le rovine puniche di Cartagine e l'indimenticabile bianco e blu di Sidi Bou Saïd.",
       DE: "Das Herz der Hauptstadt: lebhafte Souks der Medina, punische Ruinen Karthagos und das unvergessliche Blau-Weiß von Sidi Bou Saïd.",
       ES: "La esencia de la capital: vibrantes zocos de la medina, las ruinas púnicas de Cartago y el inolvidable azul y blanco de Sidi Bou Saïd.",
       AR: "جوهر العاصمة: أسواق المدينة العتيقة النابضة، آثار قرطاج البونية، والأزرق والأبيض الخلاب لسيدي بوسعيد.",
     },
-    duration: { FR: "1 jour", EN: "1 day", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
+    duration: { FR: "1 jour", EN: "1 day", IT: "1 giorno", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
     priceRows: [
       { fromKey: "hammamet_nabeul", price1to4: 95, price4to8: 147 },
       { fromKey: "sousse_monastir", price1to4: 133, price4to8: 167 },
@@ -140,6 +149,7 @@ export const EXCURSIONS: Excursion[] = [
     title: {
       FR: "Dougga & Bulla Regia",
       EN: "Dougga & Bulla Regia",
+      IT: "Dougga e Bulla Regia",
       DE: "Dougga & Bulla Regia",
       ES: "Dougga y Bulla Regia",
       AR: "دڨة وبُلاّ ريجيا",
@@ -147,6 +157,7 @@ export const EXCURSIONS: Excursion[] = [
     destinations: {
       FR: "Dougga (Site UNESCO) · Bulla Regia (Villas romaines souterraines)",
       EN: "Dougga (UNESCO Site) · Bulla Regia (Underground Roman villas)",
+      IT: "Dougga (Sito UNESCO) · Bulla Regia (Ville romane sotterranee)",
       DE: "Dougga (UNESCO-Welterbe) · Bulla Regia (Unterirdische römische Villen)",
       ES: "Dougga (Patrimonio UNESCO) · Bulla Regia (Villas romanas subterráneas)",
       AR: "دڨة (موقع يونسكو) · بلا ريجيا (الفيلات الرومانية الأرضية)",
@@ -154,11 +165,12 @@ export const EXCURSIONS: Excursion[] = [
     description: {
       FR: "Plongée dans l'Empire romain : la majestueuse Dougga classée UNESCO et les fascinantes maisons souterraines de Bulla Regia.",
       EN: "A dive into the Roman Empire: the majestic UNESCO-listed Dougga and the fascinating underground houses of Bulla Regia.",
+      IT: "Un tuffo nell'Impero Romano: la maestosa Dougga, patrimonio UNESCO, e le affascinanti case sotterranee di Bulla Regia.",
       DE: "Eintauchen in das Römische Reich: das majestätische UNESCO-Welterbe Dougga und die faszinierenden unterirdischen Häuser von Bulla Regia.",
       ES: "Una inmersión en el Imperio Romano: la majestuosa Dougga, declarada Patrimonio UNESCO, y las fascinantes casas subterráneas de Bulla Regia.",
       AR: "غوص في الإمبراطورية الرومانية: دڨة المهيبة المُصنّفة من اليونسكو ومنازل بلا ريجيا الجوفية المذهلة.",
     },
-    duration: { FR: "1 jour", EN: "1 day", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
+    duration: { FR: "1 jour", EN: "1 day", IT: "1 giorno", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
     priceRows: [
       { fromKey: "hammamet_nabeul", price1to4: 209, price4to8: 236 },
       { fromKey: "sousse_monastir", price1to4: 218, price4to8: 246 },
@@ -171,6 +183,7 @@ export const EXCURSIONS: Excursion[] = [
     title: {
       FR: "Friguia Park (Demi-journée)",
       EN: "Friguia Park (Half-Day)",
+      IT: "Friguia Park (Mezza giornata)",
       DE: "Friguia Park (Halbtag)",
       ES: "Friguia Park (Medio día)",
       AR: "حديقة فريقية (نصف يوم)",
@@ -178,6 +191,7 @@ export const EXCURSIONS: Excursion[] = [
     destinations: {
       FR: "Parc animalier Friguia · Spectacles d'otaries",
       EN: "Friguia Animal Park · Sea Lion Shows",
+      IT: "Parco zoologico Friguia · Spettacoli con leoni marini",
       DE: "Tierpark Friguia · Seelöwen-Shows",
       ES: "Parque zoológico Friguia · Espectáculos de leones marinos",
       AR: "حديقة حيوانات فريقية · عروض أسود البحر",
@@ -185,11 +199,12 @@ export const EXCURSIONS: Excursion[] = [
     description: {
       FR: "Une demi-journée magique en famille : safari africain, plus de 50 espèces et spectacles inoubliables au cœur de la Tunisie.",
       EN: "A magical half-day with the family: African safari, more than 50 species and unforgettable shows in the heart of Tunisia.",
+      IT: "Una mezza giornata magica in famiglia: safari africano, oltre 50 specie e spettacoli indimenticabili nel cuore della Tunisia.",
       DE: "Ein magischer halber Tag mit der Familie: afrikanische Safari, über 50 Tierarten und unvergessliche Shows im Herzen Tunesiens.",
       ES: "Media jornada mágica en familia: safari africano, más de 50 especies y espectáculos inolvidables en el corazón de Túnez.",
       AR: "نصف يوم ساحر مع العائلة: سفاري أفريقي، أكثر من 50 نوعًا وعروض لا تُنسى في قلب تونس.",
     },
-    duration: { FR: "Demi-journée", EN: "Half-day", DE: "Halbtag", ES: "Medio día", AR: "نصف يوم" },
+    duration: { FR: "Demi-journée", EN: "Half-day", IT: "Mezza giornata", DE: "Halbtag", ES: "Medio día", AR: "نصف يوم" },
     priceRows: [
       { fromKey: "hammamet_nabeul", price1to4: 72, price4to8: 119 },
       { fromKey: "sousse", price1to4: 72, price4to8: 119 },
@@ -206,6 +221,7 @@ export const FROM_LABEL: Record<PriceRow["fromKey"], Record<Lang, string>> = {
   tunis: {
     FR: "Tunis (Grand Tunis)",
     EN: "Tunis (Grand Tunis)",
+    IT: "Tunisi (Grande Tunisi)",
     DE: "Tunis (Groß-Tunis)",
     ES: "Túnez (Grand Tunis)",
     AR: "تونس الكبرى",
@@ -213,6 +229,7 @@ export const FROM_LABEL: Record<PriceRow["fromKey"], Record<Lang, string>> = {
   hammamet_nabeul: {
     FR: "Hammamet / Nabeul",
     EN: "Hammamet / Nabeul",
+    IT: "Hammamet / Nabeul",
     DE: "Hammamet / Nabeul",
     ES: "Hammamet / Nabeul",
     AR: "الحمامات / نابل",
@@ -220,6 +237,7 @@ export const FROM_LABEL: Record<PriceRow["fromKey"], Record<Lang, string>> = {
   sousse_monastir: {
     FR: "Sousse / Monastir",
     EN: "Sousse / Monastir",
+    IT: "Sousse / Monastir",
     DE: "Sousse / Monastir",
     ES: "Sousse / Monastir",
     AR: "سوسة / المنستير",
@@ -227,6 +245,7 @@ export const FROM_LABEL: Record<PriceRow["fromKey"], Record<Lang, string>> = {
   sousse: {
     FR: "Sousse",
     EN: "Sousse",
+    IT: "Sousse",
     DE: "Sousse",
     ES: "Sousse",
     AR: "سوسة",
@@ -237,6 +256,7 @@ export const TABLE_HEADERS: Record<"from" | "v1to4" | "v4to8", Record<Lang, stri
   from: {
     FR: "Départ depuis",
     EN: "Departure from",
+    IT: "Partenza da",
     DE: "Abfahrt ab",
     ES: "Salida desde",
     AR: "الانطلاق من",
@@ -244,6 +264,7 @@ export const TABLE_HEADERS: Record<"from" | "v1to4" | "v4to8", Record<Lang, stri
   v1to4: {
     FR: "Véhicule (1-4 pers.)",
     EN: "Vehicle (1-4 pax)",
+    IT: "Veicolo (1-4 pax)",
     DE: "Fahrzeug (1-4 Pers.)",
     ES: "Vehículo (1-4 pax)",
     AR: "سيارة (1-4 ركاب)",
@@ -251,6 +272,7 @@ export const TABLE_HEADERS: Record<"from" | "v1to4" | "v4to8", Record<Lang, stri
   v4to8: {
     FR: "Véhicule (4-8 pers.)",
     EN: "Vehicle (4-8 pax)",
+    IT: "Veicolo (4-8 pax)",
     DE: "Fahrzeug (4-8 Pers.)",
     ES: "Vehículo (4-8 pax)",
     AR: "سيارة (4-8 ركاب)",
@@ -274,6 +296,14 @@ export const INCLUSIONS: Record<"included" | "excluded", Record<Lang, string[]>>
       "Passenger insurance",
       "Mineral water for each passenger",
       "Onboard Wi-Fi",
+    ],
+    IT: [
+      "Trasporto privato climatizzato",
+      "Servizi di un autista professionista",
+      "Carburante e pedaggi autostradali",
+      "Assicurazione passeggeri",
+      "Acqua minerale per ogni passeggero",
+      "Wi-Fi a bordo",
     ],
     DE: [
       "Privater klimatisierter Transport",
@@ -311,6 +341,11 @@ export const INCLUSIONS: Record<"included" | "excluded", Record<Lang, string[]>>
       "Lunch and personal beverages",
       "Personal expenses and tips",
     ],
+    IT: [
+      "Biglietti d'ingresso a musei e siti archeologici",
+      "Pranzo e bevande personali",
+      "Spese personali e mance",
+    ],
     DE: [
       "Eintrittsgebühren für Museen und archäologische Stätten",
       "Mittagessen und persönliche Getränke",
@@ -336,6 +371,7 @@ export const SECTION_LABELS: Record<
   pricing: {
     FR: "Tarifs",
     EN: "Pricing",
+    IT: "Tariffe",
     DE: "Preise",
     ES: "Tarifas",
     AR: "الأسعار",
@@ -343,6 +379,7 @@ export const SECTION_LABELS: Record<
   included: {
     FR: "Inclus dans le tarif",
     EN: "Included in the price",
+    IT: "Incluso nel prezzo",
     DE: "Im Preis inbegriffen",
     ES: "Incluido en el precio",
     AR: "ما يشمله السعر",
@@ -350,6 +387,7 @@ export const SECTION_LABELS: Record<
   excluded: {
     FR: "Non inclus",
     EN: "Not included",
+    IT: "Non incluso",
     DE: "Nicht inbegriffen",
     ES: "No incluido",
     AR: "غير مشمول",
@@ -357,6 +395,7 @@ export const SECTION_LABELS: Record<
   destinations: {
     FR: "Étapes du voyage",
     EN: "Trip destinations",
+    IT: "Tappe del viaggio",
     DE: "Reisestationen",
     ES: "Etapas del viaje",
     AR: "محطات الرحلة",
@@ -364,6 +403,7 @@ export const SECTION_LABELS: Record<
   book: {
     FR: "Réserver cette excursion",
     EN: "Book this excursion",
+    IT: "Prenota questa escursione",
     DE: "Diese Tour buchen",
     ES: "Reservar esta excursión",
     AR: "احجز هذه الرحلة",
