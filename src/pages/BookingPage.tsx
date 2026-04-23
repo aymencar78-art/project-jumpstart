@@ -436,29 +436,28 @@ const BookingPage = ({ lang, t }: Props) => {
                 pointerEvents: "none",
               }}
             />
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "6px", padding: "4px 10px", borderRadius: "999px", background: "rgba(212,175,55,0.12)", border: "1px solid hsl(var(--gold) / 0.4)" }}>
-              <Sparkles size={12} style={{ color: "hsl(var(--gold))" }} />
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+              <Sparkles size={16} style={{ color: "hsl(var(--gold))" }} />
               <span
                 style={{
                   fontFamily: "var(--font-mono)",
-                  fontSize: "9px",
-                  letterSpacing: "1.5px",
+                  fontSize: "10px",
+                  letterSpacing: "3px",
                   color: "hsl(var(--gold))",
                   textTransform: "uppercase",
-                  fontWeight: 700,
-                  whiteSpace: "nowrap",
+                  fontWeight: 600,
                 }}
               >
-                {tr(lang, "Résa Express", "Express", "Express", "Express", "حجز سريع")}
+                {tr(lang, "Réservation Express", "Express Booking", "Express-Buchung", "Reserva Express", "حجز سريع")}
               </span>
             </div>
             <h2 style={{ fontFamily: "var(--font-display)", fontSize: "24px", fontWeight: 500, margin: 0, lineHeight: 1.2 }}>
               {stepLabels[step]}
             </h2>
 
-            {/* segmented progress */}
+            {/* segmented progress (3 steps) */}
             <div style={{ marginTop: "16px", display: "flex", gap: "6px", alignItems: "center" }}>
-              {[0, 1].map((i) => (
+              {[0, 1, 2].map((i) => (
                 <div
                   key={i}
                   style={{
@@ -479,7 +478,7 @@ const BookingPage = ({ lang, t }: Props) => {
                 marginTop: "8px",
                 display: "flex",
                 justifyContent: "space-between",
-                gap: "8px",
+                gap: "6px",
                 fontFamily: "var(--font-mono)",
                 fontSize: "9px",
                 letterSpacing: "1px",
@@ -492,7 +491,10 @@ const BookingPage = ({ lang, t }: Props) => {
                 01 · {tr(lang, "Trajet", "Trip", "Fahrt", "Viaje", "الرحلة")}
               </span>
               <span style={{ color: step === 1 ? "hsl(var(--gold))" : undefined, fontWeight: step === 1 ? 700 : 500 }}>
-                02 · {tr(lang, "Véhicule", "Vehicle", "Auto", "Auto", "السيارة")}
+                02 · {tr(lang, "Passagers", "Pax", "Pax", "Pax", "ركاب")}
+              </span>
+              <span style={{ color: step === 2 ? "hsl(var(--gold))" : undefined, fontWeight: step === 2 ? 700 : 500 }}>
+                03 · {tr(lang, "Véhicule", "Vehicle", "Auto", "Auto", "السيارة")}
               </span>
             </div>
           </div>
