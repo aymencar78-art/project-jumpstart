@@ -438,18 +438,20 @@ const BookingPage = ({ lang, t }: Props) => {
                 marginTop: "8px",
                 display: "flex",
                 justifyContent: "space-between",
+                gap: "8px",
                 fontFamily: "var(--font-mono)",
-                fontSize: "10px",
-                letterSpacing: "1.5px",
+                fontSize: "9px",
+                letterSpacing: "1px",
                 color: "rgba(255,255,255,0.7)",
                 textTransform: "uppercase",
+                whiteSpace: "nowrap",
               }}
             >
               <span style={{ color: step === 0 ? "hsl(var(--gold))" : undefined, fontWeight: step === 0 ? 700 : 500 }}>
-                01 · {tr(lang, "Trajet", "Trip", "Fahrt", "Trayecto", "الرحلة")}
+                01 · {tr(lang, "Trajet", "Trip", "Fahrt", "Viaje", "الرحلة")}
               </span>
               <span style={{ color: step === 1 ? "hsl(var(--gold))" : undefined, fontWeight: step === 1 ? 700 : 500 }}>
-                02 · {tr(lang, "Véhicule", "Vehicle", "Fahrzeug", "Vehículo", "السيارة")}
+                02 · {tr(lang, "Véhicule", "Vehicle", "Auto", "Auto", "السيارة")}
               </span>
             </div>
           </div>
