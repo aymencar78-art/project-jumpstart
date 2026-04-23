@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { z } from "zod";
+import { Phone, Mail, MessageCircle, MapPin } from "lucide-react";
 import type { Lang, Translation } from "@/i18n/types";
 import type { PageKey } from "@/lib/pages";
 import { isRTL } from "@/i18n/translations";
@@ -83,7 +84,9 @@ const ContactPage = ({ setPage, lang, t }: Props) => {
       <div style={{ maxWidth: "560px", margin: "0 auto" }}>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <div style={{ textAlign: "center", marginBottom: "28px" }}>
-            <div style={{ fontSize: "32px", marginBottom: "10px" }}>📞</div>
+            <div style={{ display: "inline-flex", width: "56px", height: "56px", borderRadius: "50%", border: "1px solid hsl(var(--gold))", alignItems: "center", justifyContent: "center", marginBottom: "12px", boxShadow: "0 0 18px hsl(var(--gold) / .25)" }}>
+              <Phone size={22} color="hsl(var(--gold-light))" strokeWidth={1.8} />
+            </div>
             <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px,7vw,40px)", fontWeight: 300, marginBottom: "8px" }}>{t.contact_title}</h1>
             <p style={{ fontSize: "13px", color: "hsl(var(--text-muted))" }}>{t.contact_sub}</p>
           </div>
@@ -91,17 +94,24 @@ const ContactPage = ({ setPage, lang, t }: Props) => {
           {/* Quick contact info */}
           <div style={{ display: "grid", gap: "8px", marginBottom: "24px" }}>
             {[
-              { i: "📞", v: "+216 XX XXX XXX", href: "tel:+216XXXXXXXX" },
-              { i: "✉", v: "contact@africana.tn", href: "mailto:contact@africana.tn" },
-              { i: "💬", v: "WhatsApp +216 XX XXX XXX", href: "https://wa.me/216XXXXXXXX" },
-              { i: "📍", v: "Tunis 1080, Tunisie" },
+              { Icon: Phone, v: "+216 27 906 446", href: "tel:+21627906446", color: "hsl(var(--gold-light))" },
+              { Icon: MessageCircle, v: "WhatsApp +216 27 906 446", href: "https://wa.me/21627906446", color: "#25D366" },
+              { Icon: Mail, v: "carlito@africana.com", href: "mailto:carlito@africana.com", color: "hsl(var(--gold-light))" },
+              { Icon: MapPin, v: "Tunis 1080, Tunisie", href: undefined, color: "hsl(var(--gold-light))" },
             ].map((c) => (
-              <a key={c.v} href={c.href || "#"} style={{ display: "flex", gap: "12px", padding: "12px 14px", background: "#fff", border: "1px solid hsl(var(--border-gold))", alignItems: "center", textDecoration: "none", color: "hsl(var(--foreground))" }}>
-                <span style={{ fontSize: "18px" }}>{c.i}</span>
+              <a
+                key={c.v}
+                href={c.href || "#"}
+                target={c.href?.startsWith("http") ? "_blank" : undefined}
+                rel={c.href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                style={{ display: "flex", gap: "12px", padding: "12px 14px", background: "#fff", border: "1px solid hsl(var(--border-gold))", alignItems: "center", textDecoration: "none", color: "hsl(var(--foreground))" }}
+              >
+                <c.Icon size={18} color={c.color} strokeWidth={1.8} />
                 <span style={{ fontSize: "13px" }}>{c.v}</span>
               </a>
             ))}
           </div>
+
 
           {/* Contact form */}
           <form onSubmit={submit} style={{ background: "hsl(var(--bg-card))", border: "1px solid hsl(var(--border-gold))", padding: "22px", display: "grid", gap: "14px" }} noValidate>
