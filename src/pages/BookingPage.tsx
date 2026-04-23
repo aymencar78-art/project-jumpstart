@@ -236,12 +236,35 @@ const BookingPage = ({ lang, t }: Props) => {
 
   /* auto-pick smallest fitting vehicle when entering step 2 */
   useEffect(() => {
-    if (step !== 1) return;
+    if (step !== 2) return;
     if (s2.carType) return;
     const fit = CARS.find((c) => c.maxPax >= totalPax && c.maxBags >= s1.bags);
     if (fit) setS2((p) => ({ ...p, carType: fit.id }));
   }, [step, totalPax, s1.bags, s2.carType]);
 
+  // Step 0 (trip) → Step 1 (passengers)
+  const goStep0Next = () => {
+    const tripSchema = step1Schema.pick({
+      departure: true,
+      destination: true,
+      departureDate: true,
+      departureTime: true,
+    } as const);
+    const r = tripSchema.safeParse(s1);
+    if (!r.success) {
+      const e: Record<string, string> = {};
+      r.error.issues.forEach((i) => {
+        const k = i.path[0] as string;
+        if (!e[k]) e[k] = i.message;
+      });
+      setErrs1(e);
+      return;
+    }
+    setErrs1({});
+    setStep(1);
+  };
+
+  // Step 1 (passengers) → Step 2 (vehicle/payment/info)
   const goStep1Next = () => {
     if (tooMany) {
       toast.error(tr(lang, "Maximum 8 passagers", "Maximum 8 passengers", "Max. 8 Passagiere", "Máx. 8 pasajeros", "الحد الأقصى 8 ركاب"));
@@ -258,7 +281,7 @@ const BookingPage = ({ lang, t }: Props) => {
       return;
     }
     setErrs1({});
-    setStep(1);
+    setStep(2);
   };
 
   const handleSubmit = async () => {
