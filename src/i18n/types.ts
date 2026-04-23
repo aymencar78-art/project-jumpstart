@@ -1,4 +1,4 @@
-export type Lang = "FR" | "EN" | "DE" | "ES" | "AR";
+export type Lang = "FR" | "EN" | "IT" | "DE" | "ES" | "AR";
 
 export type Translation = {
   // Brand

@@ -1,9 +1,10 @@
 import type { Lang, Translation } from "./types";
 
-export const FLAGS: Record<Lang, string> = { FR: "🇫🇷", EN: "🇬🇧", DE: "🇩🇪", ES: "🇪🇸", AR: "🇹🇳" };
+export const FLAGS: Record<Lang, string> = { FR: "🇫🇷", EN: "🇬🇧", IT: "🇮🇹", DE: "🇩🇪", ES: "🇪🇸", AR: "🇹🇳" };
 export const LANG_NAMES: Record<Lang, string> = {
   FR: "Français",
   EN: "English",
+  IT: "Italiano",
   DE: "Deutsch",
   ES: "Español",
   AR: "العربية",
