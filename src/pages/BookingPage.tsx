@@ -27,7 +27,7 @@ import Dust from "@/components/africana/Dust";
 import CsvLocationPicker from "@/components/africana/CsvLocationPicker";
 import { isRTL } from "@/i18n/translations";
 import type { Lang, Translation } from "@/i18n/types";
-import sidiBouSaidHero from "@/assets/sidi-bou-said-hero.jpg";
+import heroBackground from "@/assets/sahara-hero.jpg";
 import { findRoute, type VehicleKind } from "@/data/transfers";
 import { useBookingDraft } from "@/context/BookingContext";
 import carHatchback from "@/assets/car-hatchback.jpg";
@@ -376,7 +376,7 @@ const BookingPage = ({ lang, t }: Props) => {
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url(${sidiBouSaidHero})`,
+            backgroundImage: `url(${heroBackground})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",

@@ -6,7 +6,7 @@ import { TRANSFER_ROUTES, TRANSFER_LOCATIONS } from "@/data/transfers";
 import type { Lang, Translation } from "@/i18n/types";
 import type { PageKey } from "@/lib/pages";
 import { isRTL } from "@/i18n/translations";
-import sidiBouSaidHero from "@/assets/sidi-bou-said-hero.jpg";
+import heroBackground from "@/assets/sahara-hero.jpg";
 
 type Props = { setPage: (p: PageKey) => void; lang: Lang; t: Translation };
 
@@ -94,7 +94,7 @@ const PricingPage = ({ setPage, lang, t }: Props) => {
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url(${sidiBouSaidHero})`,
+            backgroundImage: `url(${heroBackground})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             zIndex: 0,
