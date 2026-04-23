@@ -860,6 +860,8 @@ const BookingPage = ({ lang, t }: Props) => {
 
               {/* ===================== STEP 2: vehicle + payment + info ===================== */}
               {step === 2 && (
+                <motion.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                  {/* trip summary — descriptive, bigger fonts, details listed under */}
                   <div
                     style={{
                       background: "linear-gradient(180deg, hsl(var(--bg-surface)) 0%, #fff 100%)",
