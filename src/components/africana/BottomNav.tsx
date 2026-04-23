@@ -1,15 +1,16 @@
 import type { PageKey } from "@/lib/pages";
 import type { Translation } from "@/i18n/types";
+import { Home, Compass, Plane, Wallet, Phone, type LucideIcon } from "lucide-react";
 
 type Props = { page: PageKey; setPage: (p: PageKey) => void; t: Translation };
 
 const BottomNav = ({ page, setPage, t }: Props) => {
-  const items: { k: PageKey; icon: string; l: string; primary?: boolean }[] = [
-    { k: "home", icon: "🏠", l: t.nav_home },
-    { k: "excursions", icon: "🗺", l: t.nav_excursions },
-    { k: "booking", icon: "✈", l: t.book_cta, primary: true },
-    { k: "pricing", icon: "💰", l: t.nav_pricing },
-    { k: "contact", icon: "📞", l: t.nav_contact },
+  const items: { k: PageKey; Icon: LucideIcon; l: string; primary?: boolean }[] = [
+    { k: "home", Icon: Home, l: t.nav_home },
+    { k: "excursions", Icon: Compass, l: t.nav_excursions },
+    { k: "booking", Icon: Plane, l: t.book_cta, primary: true },
+    { k: "pricing", Icon: Wallet, l: t.nav_pricing },
+    { k: "contact", Icon: Phone, l: t.nav_contact },
   ];
   return (
     <>
@@ -45,7 +46,17 @@ const BottomNav = ({ page, setPage, t }: Props) => {
                 minWidth: "48px",
               }}
             >
-              <span style={{ fontSize: "22px", lineHeight: 1 }}>{item.icon}</span>
+              <item.Icon
+                size={item.primary ? 22 : 20}
+                strokeWidth={item.primary ? 2.4 : 1.8}
+                color={
+                  item.primary
+                    ? "hsl(var(--ink))"
+                    : page === item.k
+                    ? "hsl(var(--gold-light))"
+                    : "hsl(var(--on-ink-muted))"
+                }
+              />
               <span
                 style={{
                   fontSize: "12px",
