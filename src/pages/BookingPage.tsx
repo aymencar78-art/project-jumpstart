@@ -138,7 +138,7 @@ type Props = { lang: Lang; t: Translation };
 const BookingPage = ({ lang, t }: Props) => {
   const dir = isRTL(lang) ? "rtl" : "ltr";
   const { draft, setDraft } = useBookingDraft();
-  const [step, setStep] = useState<0 | 1>(0);
+  const [step, setStep] = useState<0 | 1 | 2>(0);
 
   const [s1, setS1] = useState<Step1>({
     departure: draft.departure,
