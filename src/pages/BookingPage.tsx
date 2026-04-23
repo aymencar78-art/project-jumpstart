@@ -337,7 +337,8 @@ const BookingPage = ({ lang, t }: Props) => {
   };
 
   const stepLabels = [
-    tr(lang, "Trajet & Passagers", "Trip & Passengers", "Fahrt & Passagiere", "Trayecto y Pasajeros", "الرحلة والركاب"),
+    tr(lang, "Votre Trajet", "Your Trip", "Ihre Fahrt", "Su Trayecto", "رحلتك"),
+    tr(lang, "Passagers & Bagages", "Passengers & Luggage", "Passagiere & Gepäck", "Pasajeros y Equipaje", "الركاب والأمتعة"),
     tr(lang, "Véhicule, Paiement & Infos", "Vehicle, Payment & Info", "Fahrzeug, Zahlung & Info", "Vehículo, Pago e Info", "السيارة والدفع والمعلومات"),
   ];
 
