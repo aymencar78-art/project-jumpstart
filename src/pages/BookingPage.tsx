@@ -388,7 +388,7 @@ const BookingPage = ({ lang, t }: Props) => {
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(180deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.08) 35%, rgba(255,255,255,0.55) 100%)",
+              "linear-gradient(180deg, rgba(11,26,47,0.55) 0%, rgba(11,26,47,0.25) 35%, rgba(255,245,220,0.45) 100%)",
             zIndex: 1,
           }}
         />
