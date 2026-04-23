@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Phone, MessageCircle, Mail } from "lucide-react";
 import LangDropdown from "./LangDropdown";
 import { T, FLAGS, LANG_NAMES, isRTL } from "@/i18n/translations";
 import type { Lang } from "@/i18n/types";
@@ -252,6 +253,28 @@ const Navbar = ({ page, setPage, lang, setLang, scrolled }: Props) => {
                   </button>
                 ))}
               </div>
+            </motion.div>
+
+            {/* Contact block */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.42 }} style={{ marginTop: "24px", display: "grid", gap: "8px" }}>
+              <div style={{ fontSize: "9px", letterSpacing: "3px", color: "hsl(var(--gold))", marginBottom: "4px" }}>CONTACT</div>
+              {[
+                { Icon: Phone, label: "+216 27 906 446", href: "tel:+21627906446", color: "hsl(var(--gold-light))" },
+                { Icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/21627906446", color: "#25D366" },
+                { Icon: Mail, label: "carlito@africana.com", href: "mailto:carlito@africana.com", color: "hsl(var(--gold-light))" },
+              ].map((c) => (
+                <a
+                  key={c.label}
+                  href={c.href}
+                  target={c.href.startsWith("http") ? "_blank" : undefined}
+                  rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  onClick={() => setDrawer(false)}
+                  style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 12px", border: "1px solid hsl(var(--border-gold))", background: "rgba(255,255,255,.03)", color: "hsl(var(--on-ink))", textDecoration: "none", fontSize: "12px", letterSpacing: ".5px" }}
+                >
+                  <c.Icon size={16} color={c.color} strokeWidth={1.8} />
+                  <span>{c.label}</span>
+                </a>
+              ))}
             </motion.div>
 
             <motion.button
