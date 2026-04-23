@@ -77,10 +77,15 @@ const CsvLocationPicker = forwardRef<HTMLDivElement, Props>(({ value, onChange, 
     </li>
   );
 
+  const isEmpty = !value;
   return (
     <div ref={wrapRef} style={{ position: "relative" }}>
+      <style>{`
+        .csv-loc-input::placeholder { font-size: 15px; font-weight: 600; opacity: 0.7; }
+      `}</style>
       <input
         id={id}
+        className="csv-loc-input"
         aria-label={ariaLabel}
         autoComplete="off"
         value={value}
