@@ -138,7 +138,7 @@ type Props = { lang: Lang; t: Translation };
 const BookingPage = ({ lang, t }: Props) => {
   const dir = isRTL(lang) ? "rtl" : "ltr";
   const { draft, setDraft } = useBookingDraft();
-  const [step, setStep] = useState<0 | 1>(0);
+  const [step, setStep] = useState<0 | 1 | 2>(0);
 
   const [s1, setS1] = useState<Step1>({
     departure: draft.departure,
@@ -236,12 +236,52 @@ const BookingPage = ({ lang, t }: Props) => {
 
   /* auto-pick smallest fitting vehicle when entering step 2 */
   useEffect(() => {
-    if (step !== 1) return;
+    if (step !== 2) return;
     if (s2.carType) return;
     const fit = CARS.find((c) => c.maxPax >= totalPax && c.maxBags >= s1.bags);
     if (fit) setS2((p) => ({ ...p, carType: fit.id }));
   }, [step, totalPax, s1.bags, s2.carType]);
 
+  // Step 0 (trip) → Step 1 (passengers)
+  const goStep0Next = () => {
+    const tripSchema = z
+      .object({
+        departure: z.string().trim().min(2, tr(lang, "Lieu de départ requis", "Pickup is required", "Abfahrt erforderlich", "Lugar de salida requerido", "نقطة الانطلاق مطلوبة")),
+        destination: z.string().trim().min(2, tr(lang, "Destination requise", "Destination is required", "Ziel erforderlich", "Destino requerido", "الوجهة مطلوبة")),
+        departureDate: z.string().min(1, tr(lang, "Date requise", "Date is required", "Datum erforderlich", "Fecha requerida", "التاريخ مطلوب")),
+        departureTime: z.string().min(1, tr(lang, "Heure requise", "Time is required", "Uhrzeit erforderlich", "Hora requerida", "الوقت مطلوب")),
+      })
+      .refine(
+        (v) => {
+          if (!v.departureDate || !v.departureTime) return true;
+          const dt = new Date(`${v.departureDate}T${v.departureTime}`);
+          return dt.getTime() >= minDateTime().getTime();
+        },
+        {
+          message: tr(lang, "Réservation possible 4h à l'avance minimum.", "Booking must be at least 4 hours in advance.", "Buchung mindestens 4 Std. im Voraus.", "Reserva con al menos 4h de antelación.", "يجب الحجز قبل 4 ساعات على الأقل."),
+          path: ["departureTime"],
+        }
+      );
+    const r = tripSchema.safeParse({
+      departure: s1.departure,
+      destination: s1.destination,
+      departureDate: s1.departureDate,
+      departureTime: s1.departureTime,
+    });
+    if (!r.success) {
+      const e: Record<string, string> = {};
+      r.error.issues.forEach((i) => {
+        const k = i.path[0] as string;
+        if (!e[k]) e[k] = i.message;
+      });
+      setErrs1(e);
+      return;
+    }
+    setErrs1({});
+    setStep(1);
+  };
+
+  // Step 1 (passengers) → Step 2 (vehicle/payment/info)
   const goStep1Next = () => {
     if (tooMany) {
       toast.error(tr(lang, "Maximum 8 passagers", "Maximum 8 passengers", "Max. 8 Passagiere", "Máx. 8 pasajeros", "الحد الأقصى 8 ركاب"));
@@ -258,7 +298,7 @@ const BookingPage = ({ lang, t }: Props) => {
       return;
     }
     setErrs1({});
-    setStep(1);
+    setStep(2);
   };
 
   const handleSubmit = async () => {
@@ -297,7 +337,8 @@ const BookingPage = ({ lang, t }: Props) => {
   };
 
   const stepLabels = [
-    tr(lang, "Trajet & Passagers", "Trip & Passengers", "Fahrt & Passagiere", "Trayecto y Pasajeros", "الرحلة والركاب"),
+    tr(lang, "Votre Trajet", "Your Trip", "Ihre Fahrt", "Su Trayecto", "رحلتك"),
+    tr(lang, "Passagers & Bagages", "Passengers & Luggage", "Passagiere & Gepäck", "Pasajeros y Equipaje", "الركاب والأمتعة"),
     tr(lang, "Véhicule, Paiement & Infos", "Vehicle, Payment & Info", "Fahrzeug, Zahlung & Info", "Vehículo, Pago e Info", "السيارة والدفع والمعلومات"),
   ];
 
@@ -395,29 +436,28 @@ const BookingPage = ({ lang, t }: Props) => {
                 pointerEvents: "none",
               }}
             />
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "6px", padding: "4px 10px", borderRadius: "999px", background: "rgba(212,175,55,0.12)", border: "1px solid hsl(var(--gold) / 0.4)" }}>
-              <Sparkles size={12} style={{ color: "hsl(var(--gold))" }} />
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+              <Sparkles size={16} style={{ color: "hsl(var(--gold))" }} />
               <span
                 style={{
                   fontFamily: "var(--font-mono)",
-                  fontSize: "9px",
-                  letterSpacing: "1.5px",
+                  fontSize: "10px",
+                  letterSpacing: "3px",
                   color: "hsl(var(--gold))",
                   textTransform: "uppercase",
-                  fontWeight: 700,
-                  whiteSpace: "nowrap",
+                  fontWeight: 600,
                 }}
               >
-                {tr(lang, "Résa Express", "Express", "Express", "Express", "حجز سريع")}
+                {tr(lang, "Réservation Express", "Express Booking", "Express-Buchung", "Reserva Express", "حجز سريع")}
               </span>
             </div>
             <h2 style={{ fontFamily: "var(--font-display)", fontSize: "24px", fontWeight: 500, margin: 0, lineHeight: 1.2 }}>
               {stepLabels[step]}
             </h2>
 
-            {/* segmented progress */}
+            {/* segmented progress (3 steps) */}
             <div style={{ marginTop: "16px", display: "flex", gap: "6px", alignItems: "center" }}>
-              {[0, 1].map((i) => (
+              {[0, 1, 2].map((i) => (
                 <div
                   key={i}
                   style={{
@@ -438,7 +478,7 @@ const BookingPage = ({ lang, t }: Props) => {
                 marginTop: "8px",
                 display: "flex",
                 justifyContent: "space-between",
-                gap: "8px",
+                gap: "6px",
                 fontFamily: "var(--font-mono)",
                 fontSize: "9px",
                 letterSpacing: "1px",
@@ -451,7 +491,10 @@ const BookingPage = ({ lang, t }: Props) => {
                 01 · {tr(lang, "Trajet", "Trip", "Fahrt", "Viaje", "الرحلة")}
               </span>
               <span style={{ color: step === 1 ? "hsl(var(--gold))" : undefined, fontWeight: step === 1 ? 700 : 500 }}>
-                02 · {tr(lang, "Véhicule", "Vehicle", "Auto", "Auto", "السيارة")}
+                02 · {tr(lang, "Passagers", "Pax", "Pax", "Pax", "ركاب")}
+              </span>
+              <span style={{ color: step === 2 ? "hsl(var(--gold))" : undefined, fontWeight: step === 2 ? 700 : 500 }}>
+                03 · {tr(lang, "Véhicule", "Vehicle", "Auto", "Auto", "السيارة")}
               </span>
             </div>
           </div>
@@ -581,68 +624,9 @@ const BookingPage = ({ lang, t }: Props) => {
                     {tr(lang, "Réservation possible 4h à l'avance minimum.", "Booking must be at least 4 hours in advance.", "Buchung mindestens 4 Std. im Voraus.", "Reserva con al menos 4h de antelación.", "يجب الحجز قبل 4 ساعات على الأقل.")}
                   </p>
 
-                  {/* passengers (merged from old step 2) */}
-                  <div style={{ borderTop: "1px solid hsl(var(--border))", paddingTop: "20px", marginBottom: "16px" }}>
-                    <div style={{ ...labelStyle, marginBottom: "12px" }}>
-                      <Users size={16} style={{ color: "hsl(var(--gold))" }} />
-                      {tr(lang, "Passagers & bagages", "Passengers & luggage", "Passagiere & Gepäck", "Pasajeros y equipaje", "الركاب والأمتعة")}
-                    </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-                      {(
-                        [
-                          { k: "adults", icon: <Users size={14} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Adultes", "Adults", "Erwachsene", "Adultos", "بالغون"), min: 1, max: 20 },
-                          { k: "children", icon: <Users size={14} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Enfants (2–12)", "Children (2–12)", "Kinder (2–12)", "Niños (2–12)", "أطفال (2–12)"), min: 0, max: 20 },
-                          { k: "infants", icon: <Baby size={14} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Bébés (0–2)", "Infants (0–2)", "Babys (0–2)", "Bebés (0–2)", "رضّع (0–2)"), min: 0, max: 10 },
-                          { k: "bags", icon: <Briefcase size={14} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Bagages", "Luggage", "Gepäck", "Equipaje", "أمتعة"), min: 0, max: 20 },
-                        ] as const
-                      ).map((f) => (
-                        <div key={f.k}>
-                          <label htmlFor={`f-${f.k}`} style={{ ...labelStyle, fontSize: "13px" }}>
-                            {f.icon}
-                            {f.l}
-                          </label>
-                          <input
-                            id={`f-${f.k}`}
-                            type="number"
-                            min={f.min}
-                            max={f.max}
-                            value={s1[f.k]}
-                            onChange={(e) => {
-                              const n = Math.max(f.min, Math.min(f.max, parseInt(e.target.value || "0", 10)));
-                              setS1((p) => ({ ...p, [f.k]: n }));
-                            }}
-                            style={inputStyle}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                    {tooMany && (
-                      <div
-                        style={{
-                          background: "hsl(var(--destructive) / 0.08)",
-                          border: "1px solid hsl(var(--destructive))",
-                          color: "hsl(var(--destructive))",
-                          padding: "10px 14px",
-                          borderRadius: "8px",
-                          fontSize: "13px",
-                          marginTop: "12px",
-                        }}
-                      >
-                        {tr(
-                          lang,
-                          "Maximum 8 passagers (adultes + enfants).",
-                          "Maximum 8 passengers (adults + children).",
-                          "Maximal 8 Passagiere (Erwachsene + Kinder).",
-                          "Máximo 8 pasajeros (adultos + niños).",
-                          "الحد الأقصى 8 ركاب (بالغون + أطفال)."
-                        )}
-                      </div>
-                    )}
-                  </div>
-
                   <button
                     className="shimmer-btn"
-                    onClick={goStep1Next}
+                    onClick={goStep0Next}
                     style={{
                       width: "100%",
                       padding: "18px",
@@ -661,14 +645,221 @@ const BookingPage = ({ lang, t }: Props) => {
                       boxShadow: "0 10px 24px -8px rgba(212,175,55,0.55)",
                     }}
                   >
-                    {tr(lang, "Voir les véhicules", "See vehicles", "Fahrzeuge anzeigen", "Ver vehículos", "اعرض السيارات")}
+                    {tr(lang, "Continuer", "Continue", "Weiter", "Continuar", "متابعة")}
                     <ArrowRight size={18} />
                   </button>
                 </motion.div>
               )}
 
-              {/* ===================== STEP 2: vehicle + payment + info ===================== */}
+              {/* ===================== STEP 1: passengers & luggage (mobile-friendly counters) ===================== */}
               {step === 1 && (
+                <motion.div key="s1b" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                  <div style={{ marginBottom: "20px" }}>
+                    <div style={{ ...labelStyle, marginBottom: "6px", fontSize: "15px" }}>
+                      <Users size={18} style={{ color: "hsl(var(--gold))" }} />
+                      {tr(lang, "Qui voyage avec vous ?", "Who's travelling with you?", "Wer reist mit?", "¿Quién viaja con usted?", "من يسافر معك؟")}
+                    </div>
+                    <p style={{ fontSize: "13px", color: "hsl(var(--text-muted))", margin: 0, fontWeight: 500 }}>
+                      {tr(lang, "Touchez + ou − pour ajuster.", "Tap + or − to adjust.", "Tippen Sie + oder − zum Anpassen.", "Toque + o − para ajustar.", "اضغط + أو − للتعديل.")}
+                    </p>
+                  </div>
+
+                  <div style={{ display: "grid", gap: "10px", marginBottom: "16px" }}>
+                    {(
+                      [
+                        { k: "adults", icon: <Users size={20} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Adultes", "Adults", "Erwachsene", "Adultos", "بالغون"), sub: tr(lang, "13 ans et +", "13 yrs and over", "Ab 13 Jahren", "13 años y más", "13 سنة فأكثر"), min: 1, max: 20 },
+                        { k: "children", icon: <Users size={20} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Enfants", "Children", "Kinder", "Niños", "أطفال"), sub: tr(lang, "2 à 12 ans", "2 to 12 yrs", "2 bis 12 Jahre", "2 a 12 años", "من 2 إلى 12 سنة"), min: 0, max: 20 },
+                        { k: "infants", icon: <Baby size={20} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Bébés", "Infants", "Babys", "Bebés", "رضّع"), sub: tr(lang, "0 à 2 ans", "0 to 2 yrs", "0 bis 2 Jahre", "0 a 2 años", "من 0 إلى 2 سنة"), min: 0, max: 10 },
+                        { k: "bags", icon: <Briefcase size={20} style={{ color: "hsl(var(--gold))" }} />, l: tr(lang, "Bagages", "Luggage", "Gepäck", "Equipaje", "أمتعة"), sub: tr(lang, "Valises & sacs", "Suitcases & bags", "Koffer & Taschen", "Maletas y bolsas", "حقائب وأكياس"), min: 0, max: 20 },
+                      ] as const
+                    ).map((f) => {
+                      const value = s1[f.k];
+                      const dec = () => setS1((p) => ({ ...p, [f.k]: Math.max(f.min, p[f.k] - 1) }));
+                      const inc = () => setS1((p) => ({ ...p, [f.k]: Math.min(f.max, p[f.k] + 1) }));
+                      const decDisabled = value <= f.min;
+                      const incDisabled = value >= f.max;
+                      return (
+                        <div
+                          key={f.k}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: "12px",
+                            padding: "14px 16px",
+                            background: "#fff",
+                            border: "1px solid hsl(var(--border))",
+                            borderRadius: "14px",
+                            boxShadow: "0 1px 3px -1px rgba(0,0,0,0.04)",
+                            flexDirection: dir === "rtl" ? "row-reverse" : "row",
+                          }}
+                        >
+                          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexDirection: dir === "rtl" ? "row-reverse" : "row" }}>
+                            <div
+                              style={{
+                                width: 44,
+                                height: 44,
+                                borderRadius: 12,
+                                background: "rgba(212,175,55,0.12)",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                flexShrink: 0,
+                              }}
+                            >
+                              {f.icon}
+                            </div>
+                            <div style={{ textAlign: dir === "rtl" ? "right" : "left" }}>
+                              <div style={{ fontFamily: "var(--font-body)", fontSize: "16px", fontWeight: 700, color: "hsl(var(--ink))" }}>{f.l}</div>
+                              <div style={{ fontSize: "12px", color: "hsl(var(--text-muted))", fontWeight: 500 }}>{f.sub}</div>
+                            </div>
+                          </div>
+                          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+                            <button
+                              type="button"
+                              onClick={dec}
+                              disabled={decDisabled}
+                              aria-label={tr(lang, "Diminuer", "Decrease", "Verringern", "Disminuir", "تقليل")}
+                              style={{
+                                width: 40,
+                                height: 40,
+                                borderRadius: "50%",
+                                border: "1.5px solid hsl(var(--border))",
+                                background: decDisabled ? "hsl(var(--bg-surface))" : "#fff",
+                                color: decDisabled ? "hsl(var(--text-muted))" : "hsl(var(--ink))",
+                                cursor: decDisabled ? "not-allowed" : "pointer",
+                                fontSize: "22px",
+                                fontWeight: 600,
+                                lineHeight: 1,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                userSelect: "none",
+                                touchAction: "manipulation",
+                              }}
+                            >
+                              −
+                            </button>
+                            <div
+                              style={{
+                                minWidth: 28,
+                                textAlign: "center",
+                                fontFamily: "var(--font-body)",
+                                fontSize: "20px",
+                                fontWeight: 700,
+                                color: "hsl(var(--ink))",
+                                fontVariantNumeric: "tabular-nums",
+                              }}
+                            >
+                              {value}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={inc}
+                              disabled={incDisabled}
+                              aria-label={tr(lang, "Augmenter", "Increase", "Erhöhen", "Aumentar", "زيادة")}
+                              style={{
+                                width: 40,
+                                height: 40,
+                                borderRadius: "50%",
+                                border: "1.5px solid hsl(var(--gold))",
+                                background: incDisabled ? "hsl(var(--bg-surface))" : "linear-gradient(135deg,hsl(var(--gold)),hsl(var(--gold-light)))",
+                                color: incDisabled ? "hsl(var(--text-muted))" : "hsl(var(--ink))",
+                                cursor: incDisabled ? "not-allowed" : "pointer",
+                                fontSize: "22px",
+                                fontWeight: 700,
+                                lineHeight: 1,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                userSelect: "none",
+                                touchAction: "manipulation",
+                              }}
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {tooMany && (
+                    <div
+                      style={{
+                        background: "hsl(var(--destructive) / 0.08)",
+                        border: "1px solid hsl(var(--destructive))",
+                        color: "hsl(var(--destructive))",
+                        padding: "10px 14px",
+                        borderRadius: "8px",
+                        fontSize: "13px",
+                        marginBottom: "12px",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {tr(
+                        lang,
+                        "Maximum 8 passagers (adultes + enfants).",
+                        "Maximum 8 passengers (adults + children).",
+                        "Maximal 8 Passagiere (Erwachsene + Kinder).",
+                        "Máximo 8 pasajeros (adultos + niños).",
+                        "الحد الأقصى 8 ركاب (بالغون + أطفال)."
+                      )}
+                    </div>
+                  )}
+
+                  <div style={{ display: "flex", gap: "12px" }}>
+                    <button
+                      onClick={() => setStep(0)}
+                      style={{
+                        flexShrink: 0,
+                        padding: "16px 22px",
+                        background: "#fff",
+                        border: "1px solid hsl(var(--border))",
+                        borderRadius: "10px",
+                        cursor: "pointer",
+                        fontFamily: "var(--font-body)",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        color: "hsl(var(--ink))",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                      }}
+                    >
+                      <ArrowLeft size={16} />
+                      {tr(lang, "Retour", "Back", "Zurück", "Atrás", "رجوع")}
+                    </button>
+                    <button
+                      className="shimmer-btn"
+                      onClick={goStep1Next}
+                      style={{
+                        flex: 1,
+                        padding: "18px",
+                        background: "linear-gradient(135deg,hsl(var(--gold)),hsl(var(--gold-light)))",
+                        border: "none",
+                        borderRadius: "12px",
+                        cursor: "pointer",
+                        fontFamily: "var(--font-body)",
+                        fontSize: "17px",
+                        fontWeight: 700,
+                        color: "hsl(var(--ink))",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "10px",
+                        boxShadow: "0 10px 24px -8px rgba(212,175,55,0.55)",
+                      }}
+                    >
+                      {tr(lang, "Voir les véhicules", "See vehicles", "Fahrzeuge anzeigen", "Ver vehículos", "اعرض السيارات")}
+                      <ArrowRight size={18} />
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* ===================== STEP 2: vehicle + payment + info ===================== */}
+              {step === 2 && (
                 <motion.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
                   {/* trip summary — descriptive, bigger fonts, details listed under */}
                   <div
@@ -920,7 +1111,7 @@ const BookingPage = ({ lang, t }: Props) => {
 
                   <div style={{ display: "flex", gap: "12px" }}>
                     <button
-                      onClick={() => setStep(0)}
+                      onClick={() => setStep(1)}
                       style={{
                         flexShrink: 0,
                         padding: "16px 22px",
