@@ -353,27 +353,7 @@ const BookingPage = ({ lang, t }: Props) => {
         />
         <Dust />
 
-        {/* promo */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          style={{
-            position: "relative",
-            zIndex: 2,
-            marginBottom: "20px",
-            textAlign: "center",
-            padding: "10px 18px",
-            background: "rgba(11, 26, 47, 0.85)",
-            border: "1px solid hsl(var(--gold))",
-            borderRadius: "999px",
-            backdropFilter: "blur(6px)",
-          }}
-        >
-          <span style={{ fontFamily: "var(--font-body)", fontSize: "12px", letterSpacing: "1.5px", color: "hsl(var(--gold))", fontWeight: 600 }}>
-            {promo}
-          </span>
-        </motion.div>
+        {/* promo banner removed to optimize top space */}
 
         {/* card */}
         <motion.div
