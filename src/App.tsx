@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
-import { detectBrowserLang, isSupportedLang, SUPPORTED_LANGS } from "@/lib/i18nRoutes";
+import { detectBrowserLang, isSupportedLang } from "@/lib/i18nRoutes";
 import type { PageKey } from "@/lib/pages";
 
 const queryClient = new QueryClient();
@@ -56,6 +56,3 @@ const App = () => (
 );
 
 export default App;
-
-// Suppress unused import warning (SUPPORTED_LANGS used elsewhere)
-void SUPPORTED_LANGS;
