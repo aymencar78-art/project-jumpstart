@@ -1111,7 +1111,7 @@ const BookingPage = ({ lang, t }: Props) => {
 
                   <div style={{ display: "flex", gap: "12px" }}>
                     <button
-                      onClick={() => setStep(0)}
+                      onClick={() => setStep(1)}
                       style={{
                         flexShrink: 0,
                         padding: "16px 22px",
