@@ -301,14 +301,15 @@ const BookingPage = ({ lang, t }: Props) => {
     tr(lang, "Véhicule, Paiement & Infos", "Vehicle, Payment & Info", "Fahrzeug, Zahlung & Info", "Vehículo, Pago e Info", "السيارة والدفع والمعلومات"),
   ];
 
-  const promo = tr(
-    lang,
-    "✦ PAIEMENT CASH OU EN LIGNE · TRANSFERT EXPRESS ✦",
-    "✦ PAY CASH OR ONLINE · EXPRESS TRANSFER ✦",
-    "✦ BARZAHLUNG ODER ONLINE · EXPRESS-TRANSFER ✦",
-    "✦ EFECTIVO O EN LÍNEA · TRASLADO EXPRESS ✦",
-    "✦ ادفع نقدًا أو عبر الإنترنت · نقل سريع ✦"
-  );
+  // duration formatter: "Xh Ymin" when ≥ 60 min, else "Y min"
+  const fmtDuration = (mins: number) => {
+    if (mins < 60) return `${mins} min`;
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    const hLabel = tr(lang, "h", "h", "Std.", "h", "س");
+    const mLabel = tr(lang, "min", "min", "Min.", "min", "د");
+    return m === 0 ? `${h} ${hLabel}` : `${h} ${hLabel} ${m} ${mLabel}`;
+  };
 
   // for the date input min
   const min = useMemo(() => {
