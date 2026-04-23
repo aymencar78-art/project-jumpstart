@@ -244,13 +244,30 @@ const BookingPage = ({ lang, t }: Props) => {
 
   // Step 0 (trip) → Step 1 (passengers)
   const goStep0Next = () => {
-    const tripSchema = step1Schema.pick({
-      departure: true,
-      destination: true,
-      departureDate: true,
-      departureTime: true,
-    } as const);
-    const r = tripSchema.safeParse(s1);
+    const tripSchema = z
+      .object({
+        departure: z.string().trim().min(2, tr(lang, "Lieu de départ requis", "Pickup is required", "Abfahrt erforderlich", "Lugar de salida requerido", "نقطة الانطلاق مطلوبة")),
+        destination: z.string().trim().min(2, tr(lang, "Destination requise", "Destination is required", "Ziel erforderlich", "Destino requerido", "الوجهة مطلوبة")),
+        departureDate: z.string().min(1, tr(lang, "Date requise", "Date is required", "Datum erforderlich", "Fecha requerida", "التاريخ مطلوب")),
+        departureTime: z.string().min(1, tr(lang, "Heure requise", "Time is required", "Uhrzeit erforderlich", "Hora requerida", "الوقت مطلوب")),
+      })
+      .refine(
+        (v) => {
+          if (!v.departureDate || !v.departureTime) return true;
+          const dt = new Date(`${v.departureDate}T${v.departureTime}`);
+          return dt.getTime() >= minDateTime().getTime();
+        },
+        {
+          message: tr(lang, "Réservation possible 4h à l'avance minimum.", "Booking must be at least 4 hours in advance.", "Buchung mindestens 4 Std. im Voraus.", "Reserva con al menos 4h de antelación.", "يجب الحجز قبل 4 ساعات على الأقل."),
+          path: ["departureTime"],
+        }
+      );
+    const r = tripSchema.safeParse({
+      departure: s1.departure,
+      destination: s1.destination,
+      departureDate: s1.departureDate,
+      departureTime: s1.departureTime,
+    });
     if (!r.success) {
       const e: Record<string, string> = {};
       r.error.issues.forEach((i) => {
