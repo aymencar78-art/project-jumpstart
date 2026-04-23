@@ -301,14 +301,15 @@ const BookingPage = ({ lang, t }: Props) => {
     tr(lang, "Véhicule, Paiement & Infos", "Vehicle, Payment & Info", "Fahrzeug, Zahlung & Info", "Vehículo, Pago e Info", "السيارة والدفع والمعلومات"),
   ];
 
-  const promo = tr(
-    lang,
-    "✦ PAIEMENT CASH OU EN LIGNE · TRANSFERT EXPRESS ✦",
-    "✦ PAY CASH OR ONLINE · EXPRESS TRANSFER ✦",
-    "✦ BARZAHLUNG ODER ONLINE · EXPRESS-TRANSFER ✦",
-    "✦ EFECTIVO O EN LÍNEA · TRASLADO EXPRESS ✦",
-    "✦ ادفع نقدًا أو عبر الإنترنت · نقل سريع ✦"
-  );
+  // duration formatter: "Xh Ymin" when ≥ 60 min, else "Y min"
+  const fmtDuration = (mins: number) => {
+    if (mins < 60) return `${mins} min`;
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    const hLabel = tr(lang, "h", "h", "Std.", "h", "س");
+    const mLabel = tr(lang, "min", "min", "Min.", "min", "د");
+    return m === 0 ? `${h} ${hLabel}` : `${h} ${hLabel} ${m} ${mLabel}`;
+  };
 
   // for the date input min
   const min = useMemo(() => {
@@ -352,27 +353,7 @@ const BookingPage = ({ lang, t }: Props) => {
         />
         <Dust />
 
-        {/* promo */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          style={{
-            position: "relative",
-            zIndex: 2,
-            marginBottom: "20px",
-            textAlign: "center",
-            padding: "10px 18px",
-            background: "rgba(11, 26, 47, 0.85)",
-            border: "1px solid hsl(var(--gold))",
-            borderRadius: "999px",
-            backdropFilter: "blur(6px)",
-          }}
-        >
-          <span style={{ fontFamily: "var(--font-body)", fontSize: "12px", letterSpacing: "1.5px", color: "hsl(var(--gold))", fontWeight: 600 }}>
-            {promo}
-          </span>
-        </motion.div>
+        {/* promo banner removed to optimize top space */}
 
         {/* card */}
         <motion.div
@@ -414,19 +395,20 @@ const BookingPage = ({ lang, t }: Props) => {
                 pointerEvents: "none",
               }}
             />
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
-              <Sparkles size={16} style={{ color: "hsl(var(--gold))" }} />
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "6px", padding: "4px 10px", borderRadius: "999px", background: "rgba(212,175,55,0.12)", border: "1px solid hsl(var(--gold) / 0.4)" }}>
+              <Sparkles size={12} style={{ color: "hsl(var(--gold))" }} />
               <span
                 style={{
                   fontFamily: "var(--font-mono)",
-                  fontSize: "10px",
-                  letterSpacing: "3px",
+                  fontSize: "9px",
+                  letterSpacing: "1.5px",
                   color: "hsl(var(--gold))",
                   textTransform: "uppercase",
-                  fontWeight: 600,
+                  fontWeight: 700,
+                  whiteSpace: "nowrap",
                 }}
               >
-                {tr(lang, "Réservation Express", "Express Booking", "Express-Buchung", "Reserva Express", "حجز سريع")}
+                {tr(lang, "Résa Express", "Express", "Express", "Express", "حجز سريع")}
               </span>
             </div>
             <h2 style={{ fontFamily: "var(--font-display)", fontSize: "24px", fontWeight: 500, margin: 0, lineHeight: 1.2 }}>
@@ -456,18 +438,20 @@ const BookingPage = ({ lang, t }: Props) => {
                 marginTop: "8px",
                 display: "flex",
                 justifyContent: "space-between",
+                gap: "8px",
                 fontFamily: "var(--font-mono)",
-                fontSize: "10px",
-                letterSpacing: "1.5px",
+                fontSize: "9px",
+                letterSpacing: "1px",
                 color: "rgba(255,255,255,0.7)",
                 textTransform: "uppercase",
+                whiteSpace: "nowrap",
               }}
             >
               <span style={{ color: step === 0 ? "hsl(var(--gold))" : undefined, fontWeight: step === 0 ? 700 : 500 }}>
-                01 · {tr(lang, "Trajet", "Trip", "Fahrt", "Trayecto", "الرحلة")}
+                01 · {tr(lang, "Trajet", "Trip", "Fahrt", "Viaje", "الرحلة")}
               </span>
               <span style={{ color: step === 1 ? "hsl(var(--gold))" : undefined, fontWeight: step === 1 ? 700 : 500 }}>
-                02 · {tr(lang, "Véhicule", "Vehicle", "Fahrzeug", "Vehículo", "السيارة")}
+                02 · {tr(lang, "Véhicule", "Vehicle", "Auto", "Auto", "السيارة")}
               </span>
             </div>
           </div>
@@ -747,7 +731,7 @@ const BookingPage = ({ lang, t }: Props) => {
                         <li style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "16px", color: "hsl(var(--ink))", fontWeight: 500, flexDirection: dir === "rtl" ? "row-reverse" : "row" }}>
                           <MapPin size={18} style={{ color: "hsl(var(--gold))", flexShrink: 0 }} />
                           <span>
-                            <strong style={{ fontWeight: 700 }}>{route.distance_km} km</strong> · {tr(lang, "environ", "around", "ca.", "aprox.", "حوالي")} <strong style={{ fontWeight: 700 }}>{route.duration_min} min</strong>
+                            <strong style={{ fontWeight: 700 }}>{route.distance_km} km</strong> · {tr(lang, "environ", "around", "ca.", "aprox.", "حوالي")} <strong style={{ fontWeight: 700 }}>{fmtDuration(route.duration_min)}</strong>
                           </span>
                         </li>
                       ) : (
