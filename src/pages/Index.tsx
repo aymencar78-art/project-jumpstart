@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "@/components/africana/Navbar";
 import BottomNav from "@/components/africana/BottomNav";
 import Footer from "@/components/africana/Footer";
+import WhatsAppFab from "@/components/africana/WhatsAppFab";
 import HomePage from "@/pages/HomePage";
 import BookingPage from "@/pages/BookingPage";
 import ExcursionsPage from "@/pages/ExcursionsPage";
@@ -61,6 +62,7 @@ const Index = () => {
       </AnimatePresence>
       <Footer setPage={setPage} lang={lang} t={t} />
       <BottomNav page={page} setPage={setPage} t={t} />
+      <WhatsAppFab />
     </BookingProvider>
   );
 };
