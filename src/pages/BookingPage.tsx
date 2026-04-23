@@ -70,9 +70,12 @@ const errMsgStyle: React.CSSProperties = {
 };
 
 /* ---------- micro-i18n ---------- */
+import { IT_DICT } from "@/i18n/itDict";
 type L = Lang;
-const tr = (lang: L, fr: string, en: string, de: string, es: string, ar: string) =>
-  ({ FR: fr, EN: en, DE: de, ES: es, AR: ar }[lang] ?? en);
+const tr = (lang: L, fr: string, en: string, de: string, es: string, ar: string) => {
+  if (lang === "IT") return IT_DICT[en] ?? en;
+  return ({ FR: fr, EN: en, DE: de, ES: es, AR: ar } as Record<string, string>)[lang] ?? en;
+};
 
 /* ---------- vehicles ---------- */
 type CarType = VehicleKind;

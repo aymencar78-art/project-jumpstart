@@ -18,8 +18,11 @@ const fmt = (lang: Lang, eur: number) => {
   return `${Math.round(eur * c.rate)}${c.symbol}`;
 };
 
-const tr = (lang: Lang, fr: string, en: string, de: string, es: string, ar: string) =>
-  ({ FR: fr, EN: en, DE: de, ES: es, AR: ar }[lang] ?? en);
+import { IT_DICT } from "@/i18n/itDict";
+const tr = (lang: Lang, fr: string, en: string, de: string, es: string, ar: string) => {
+  if (lang === "IT") return IT_DICT[en] ?? en;
+  return ({ FR: fr, EN: en, DE: de, ES: es, AR: ar } as Record<string, string>)[lang] ?? en;
+};
 
 const promoText = (lang: Lang) =>
   tr(
