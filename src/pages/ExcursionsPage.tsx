@@ -72,6 +72,8 @@ const ExcursionsPage = ({ setPage, lang, t }: Props) => {
               "Excursions privées avec chauffeur professionnel — confort, sécurité et émerveillement garantis à travers la Tunisie."}
             {lang === "EN" &&
               "Private excursions with a professional driver — comfort, safety and wonder guaranteed across Tunisia."}
+            {lang === "IT" &&
+              "Escursioni private con autista professionista — comfort, sicurezza e meraviglia garantiti in tutta la Tunisia."}
             {lang === "DE" &&
               "Private Ausflüge mit professionellem Fahrer — Komfort, Sicherheit und Staunen garantiert in ganz Tunesien."}
             {lang === "ES" &&

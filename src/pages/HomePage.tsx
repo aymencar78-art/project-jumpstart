@@ -98,11 +98,12 @@ const HomePage = ({ setPage, lang, t }: Props) => {
     <section style={{ padding: "60px 16px", maxWidth: "800px", margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: "40px" }}>
         <div style={{ fontFamily: "var(--font-mono)", fontSize: "12px", letterSpacing: "4px", color: "hsl(var(--gold))", marginBottom: "10px", fontWeight: 700 }}>
-          {lang === "FR" ? "QUESTIONS FRÉQUENTES" : lang === "EN" ? "FREQUENTLY ASKED" : lang === "DE" ? "HÄUFIGE FRAGEN" : lang === "ES" ? "PREGUNTAS FRECUENTES" : "أسئلة شائعة"}
+          {lang === "FR" ? "QUESTIONS FRÉQUENTES" : lang === "EN" ? "FREQUENTLY ASKED" : lang === "IT" ? "DOMANDE FREQUENTI" : lang === "DE" ? "HÄUFIGE FRAGEN" : lang === "ES" ? "PREGUNTAS FRECUENTES" : "أسئلة شائعة"}
         </div>
         <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px,5vw,38px)", fontWeight: 400 }}>
           {lang === "FR" ? <>Tout savoir sur nos <span className="gold-text">Transferts</span></>
             : lang === "EN" ? <>Everything about our <span className="gold-text">Transfers</span></>
+            : lang === "IT" ? <>Tutto sui nostri <span className="gold-text">Trasferimenti</span></>
             : lang === "DE" ? <>Alles über unsere <span className="gold-text">Transfers</span></>
             : lang === "ES" ? <>Todo sobre nuestros <span className="gold-text">Traslados</span></>
             : <><span className="gold-text">كل ما تحتاج معرفته</span> عن خدمات النقل</>}
@@ -120,6 +121,11 @@ const HomePage = ({ setPage, lang, t }: Props) => {
             { q: "Can I pay the driver in cash?", a: "Yes. You can choose between secure online payment or paying the driver directly in cash on the day." },
             { q: "How far in advance should I book?", a: "Bookings must be made at least 4 hours before the pickup time." },
             { q: "How will I find my driver at the airport?", a: "Your driver will wait in the arrivals hall with a sign showing your name. We track your flight in real time." },
+          ] : lang === "IT" ? [
+            { q: "Quanto costa un trasferimento Tunisi–Hammamet?", a: "Il prezzo fisso per un trasferimento privato dall'aeroporto di Tunisi a Hammamet parte da 39€ per una hatchback." },
+            { q: "Posso pagare l'autista in contanti?", a: "Sì. Puoi scegliere tra pagamento online sicuro o pagamento in contanti direttamente all'autista il giorno stesso." },
+            { q: "Con quanto anticipo devo prenotare?", a: "Le prenotazioni devono essere effettuate almeno 4 ore prima dell'orario di prelievo." },
+            { q: "Come troverò il mio autista in aeroporto?", a: "Il tuo autista ti aspetterà nella sala arrivi con un cartello con il tuo nome. Seguiamo il tuo volo in tempo reale." },
           ] : lang === "DE" ? [
             { q: "Was kostet ein Transfer Tunis–Hammamet?", a: "Der Festpreis für einen privaten Transfer vom Flughafen Tunis nach Hammamet beginnt bei 39 € für ein Hatchback." },
             { q: "Kann ich den Fahrer bar bezahlen?", a: "Ja. Sie wählen zwischen sicherer Online-Zahlung und Barzahlung direkt beim Fahrer." },
