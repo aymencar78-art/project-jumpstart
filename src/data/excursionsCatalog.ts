@@ -15,6 +15,9 @@ import dougga3 from "@/assets/excursions/dougga-3.jpg";
 import friguia1 from "@/assets/excursions/friguia-1.jpg";
 import friguia2 from "@/assets/excursions/friguia-2.jpg";
 import friguia3 from "@/assets/excursions/friguia-3.jpg";
+import sahara1 from "@/assets/excursions/sahara-1.jpg";
+import sahara2 from "@/assets/excursions/sahara-2.jpg";
+import sahara3 from "@/assets/excursions/sahara-3.jpg";
 
 export type PriceRow = {
   /** Departure city / area key, localized below */
@@ -34,6 +37,12 @@ export type Excursion = {
   description: Record<Lang, string>;
   duration: Record<Lang, string>;
   priceRows: PriceRow[];
+  /** Optional: shown instead of the pricing table when no fixed rates apply */
+  quoteNote?: Record<Lang, string>;
+  /** Optional: replaces the global INCLUSIONS list for this excursion */
+  inclusionsOverride?: Record<Lang, string[]>;
+  /** Optional: replaces the global EXCLUSIONS list for this excursion */
+  exclusionsOverride?: Record<Lang, string[]>;
 };
 
 /* ------------------------------------------------------------------ */

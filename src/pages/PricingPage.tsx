@@ -435,10 +435,10 @@ const PricingPage = ({ setPage, lang, t }: Props) => {
                           style={{
                             fontFamily: "var(--font-body)",
                             fontSize: "20px",
-                            fontWeight: 700,
+                            fontWeight: 800,
                             color: "hsl(var(--ink))",
+                            letterSpacing: "0.5px",
                           }}
-                          className="gold-text"
                         >
                           {price !== undefined ? fmt(lang, price) : "—"}
                         </div>
