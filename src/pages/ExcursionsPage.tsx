@@ -312,7 +312,7 @@ const ExcursionsPage = ({ setPage, lang, t }: Props) => {
               </p>
             </div>
 
-            {/* Pricing table */}
+            {/* Pricing table — or quote note if no fixed rates */}
             <div
               style={{
                 background: "hsl(var(--bg-surface) / 0.5)",
@@ -335,106 +335,123 @@ const ExcursionsPage = ({ setPage, lang, t }: Props) => {
                 {SECTION_LABELS.pricing[lang]}
               </h3>
 
-              {/* Two stacked tables — no horizontal scroll on mobile */}
-              {([
-                { header: TABLE_HEADERS.v1to4, getPrice: (r: typeof exc.priceRows[number]) => r.price1to4 },
-                { header: TABLE_HEADERS.v4to8, getPrice: (r: typeof exc.priceRows[number]) => r.price4to8 },
-              ]).map((tbl, ti) => (
-                <div key={ti} style={{ marginTop: ti === 0 ? 0 : "18px" }}>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "11px",
-                      letterSpacing: "2px",
-                      color: "hsl(var(--gold))",
-                      fontWeight: 700,
-                      textTransform: "uppercase",
-                      marginBottom: "8px",
-                      textAlign: rtl ? "right" : "left",
-                    }}
-                  >
-                    {tbl.header[lang]}
-                  </div>
-                  <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
-                    <thead>
-                      <tr
-                        style={{
-                          background: "linear-gradient(135deg,hsl(var(--gold)),hsl(var(--gold-light)))",
-                        }}
-                      >
-                        <th
-                          style={{
-                            padding: "12px 12px",
-                            fontFamily: "var(--font-body)",
-                            fontSize: "12px",
-                            letterSpacing: "1.2px",
-                            color: "hsl(var(--ink))",
-                            textTransform: "uppercase",
-                            fontWeight: 700,
-                            textAlign: rtl ? "right" : "left",
-                            width: "62%",
-                          }}
-                        >
-                          {TABLE_HEADERS.from[lang]}
-                        </th>
-                        <th
-                          style={{
-                            padding: "12px 12px",
-                            fontFamily: "var(--font-body)",
-                            fontSize: "12px",
-                            letterSpacing: "1.2px",
-                            color: "hsl(var(--ink))",
-                            textTransform: "uppercase",
-                            fontWeight: 700,
-                            textAlign: rtl ? "left" : "right",
-                            width: "38%",
-                          }}
-                        >
-                          {tbl.header[lang]}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {exc.priceRows.map((row, ri) => (
+              {exc.priceRows.length === 0 && exc.quoteNote ? (
+                <div
+                  style={{
+                    padding: "16px 18px",
+                    background: "#fff",
+                    border: "1px solid hsl(var(--border-gold))",
+                    borderRadius: "12px",
+                    color: "hsl(var(--ink))",
+                    fontSize: "15px",
+                    lineHeight: 1.65,
+                    fontWeight: 500,
+                  }}
+                >
+                  {exc.quoteNote[lang]}
+                </div>
+              ) : (
+                /* Two stacked tables — no horizontal scroll on mobile */
+                ([
+                  { header: TABLE_HEADERS.v1to4, getPrice: (r: typeof exc.priceRows[number]) => r.price1to4 },
+                  { header: TABLE_HEADERS.v4to8, getPrice: (r: typeof exc.priceRows[number]) => r.price4to8 },
+                ]).map((tbl, ti) => (
+                  <div key={ti} style={{ marginTop: ti === 0 ? 0 : "18px" }}>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "11px",
+                        letterSpacing: "2px",
+                        color: "hsl(var(--gold))",
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        marginBottom: "8px",
+                        textAlign: rtl ? "right" : "left",
+                      }}
+                    >
+                      {tbl.header[lang]}
+                    </div>
+                    <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
+                      <thead>
                         <tr
-                          key={ri}
                           style={{
-                            borderBottom: "1px solid hsl(var(--border))",
-                            background: ri % 2 === 0 ? "transparent" : "rgba(255,255,255,0.5)",
+                            background: "linear-gradient(135deg,hsl(var(--gold)),hsl(var(--gold-light)))",
                           }}
                         >
-                          <td
+                          <th
                             style={{
-                              padding: "14px 12px",
+                              padding: "12px 12px",
                               fontFamily: "var(--font-body)",
-                              fontSize: "15px",
+                              fontSize: "12px",
+                              letterSpacing: "1.2px",
                               color: "hsl(var(--ink))",
-                              fontWeight: 600,
+                              textTransform: "uppercase",
+                              fontWeight: 700,
                               textAlign: rtl ? "right" : "left",
-                              wordBreak: "break-word",
+                              width: "62%",
                             }}
                           >
-                            {FROM_LABEL[row.fromKey][lang]}
-                          </td>
-                          <td
+                            {TABLE_HEADERS.from[lang]}
+                          </th>
+                          <th
                             style={{
-                              padding: "14px 12px",
+                              padding: "12px 12px",
                               fontFamily: "var(--font-body)",
-                              fontSize: "20px",
-                              color: "hsl(var(--gold))",
+                              fontSize: "12px",
+                              letterSpacing: "1.2px",
+                              color: "hsl(var(--ink))",
+                              textTransform: "uppercase",
                               fontWeight: 700,
                               textAlign: rtl ? "left" : "right",
-                              whiteSpace: "nowrap",
+                              width: "38%",
                             }}
                           >
-                            {tbl.getPrice(row)} €
-                          </td>
+                            {tbl.header[lang]}
+                          </th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ))}
+                      </thead>
+                      <tbody>
+                        {exc.priceRows.map((row, ri) => (
+                          <tr
+                            key={ri}
+                            style={{
+                              borderBottom: "1px solid hsl(var(--border))",
+                              background: ri % 2 === 0 ? "transparent" : "rgba(255,255,255,0.5)",
+                            }}
+                          >
+                            <td
+                              style={{
+                                padding: "14px 12px",
+                                fontFamily: "var(--font-body)",
+                                fontSize: "15px",
+                                color: "hsl(var(--ink))",
+                                fontWeight: 600,
+                                textAlign: rtl ? "right" : "left",
+                                wordBreak: "break-word",
+                              }}
+                            >
+                              {FROM_LABEL[row.fromKey][lang]}
+                            </td>
+                            <td
+                              style={{
+                                padding: "14px 12px",
+                                fontFamily: "var(--font-body)",
+                                fontSize: "20px",
+                                color: "hsl(var(--ink))",
+                                fontWeight: 800,
+                                textAlign: rtl ? "left" : "right",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {tbl.getPrice(row)} €
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ))
+              )}
             </div>
 
             {/* Inclusions */}
