@@ -243,7 +243,7 @@ export const EXCURSIONS: Excursion[] = [
       FR: "Transport premium et chauffeur-guide expert pendant 3 jours à travers le Sud tunisien. La 'Route Liberté' : nous gérons la logistique et l'expertise locale, vous gardez le choix de votre confort (hôtels, repas, activités).",
       EN: "Premium transport and expert driver-guide for 3 days across Southern Tunisia. The 'Freedom Route': we handle logistics and local expertise; you keep control over your comfort (stays, meals, activities).",
       IT: "Trasporto premium e autista-guida esperto per 3 giorni nel Sud della Tunisia. La 'Rotta della Libertà': noi curiamo logistica e competenza locale, tu scegli il tuo comfort (alloggi, pasti, attività).",
-      DE: "Premium-Transport und erfahrener Fahrer-Guide für 3 Tage durch Südtunesien. Die „Freiheitsroute": Wir kümmern uns um Logistik und lokales Know-how, Sie wählen Ihren Komfort (Übernachtung, Mahlzeiten, Aktivitäten).",
+      DE: "Premium-Transport und erfahrener Fahrer-Guide für 3 Tage durch Südtunesien. Die „Freiheitsroute“: Wir kümmern uns um Logistik und lokales Know-how, Sie wählen Ihren Komfort (Übernachtung, Mahlzeiten, Aktivitäten).",
       ES: "Transporte premium y conductor-guía experto durante 3 días por el sur de Túnez. La 'Ruta de la Libertad': nosotros gestionamos logística y experiencia local; tú eliges tu nivel de confort (alojamiento, comidas, actividades).",
       AR: "نقل فاخر وسائق-مرشد خبير لمدة 3 أيام عبر جنوب تونس. 'طريق الحرية': نحن نتولى اللوجستيك والخبرة المحلية، وأنت تختار مستوى راحتك (الإقامة، الوجبات، الأنشطة).",
     },
