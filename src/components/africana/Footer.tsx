@@ -185,7 +185,7 @@ const Footer = ({ setPage, lang, t }: Props) => {
               letterSpacing: "1px",
             }}
           >
-            📞 +216 XX XXX XXX · ✉ contact@africana.tn
+            📞 +216 27 906 446 · ✉ Contact@africana-transfert.com
           </div>
         </div>
       </div>

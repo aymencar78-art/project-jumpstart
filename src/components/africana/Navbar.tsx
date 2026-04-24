@@ -262,7 +262,7 @@ const Navbar = ({ page, setPage, lang, setLang, scrolled }: Props) => {
               {[
                 { Icon: Phone, label: "+216 27 906 446", href: "tel:+21627906446", color: "hsl(var(--gold-light))" },
                 { Icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/21627906446", color: "#25D366" },
-                { Icon: Mail, label: "carlito@africana.com", href: "mailto:carlito@africana.com", color: "hsl(var(--gold-light))" },
+                { Icon: Mail, label: "Contact@africana-transfert.com", href: "mailto:Contact@africana-transfert.com", color: "hsl(var(--gold-light))" },
               ].map((c) => (
                 <a
                   key={c.label}

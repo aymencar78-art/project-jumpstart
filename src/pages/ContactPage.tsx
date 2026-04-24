@@ -96,7 +96,7 @@ const ContactPage = ({ setPage, lang, t }: Props) => {
             {[
               { Icon: Phone, v: "+216 27 906 446", href: "tel:+21627906446", color: "hsl(var(--gold-light))" },
               { Icon: MessageCircle, v: "WhatsApp +216 27 906 446", href: "https://wa.me/21627906446", color: "#25D366" },
-              { Icon: Mail, v: "carlito@africana.com", href: "mailto:carlito@africana.com", color: "hsl(var(--gold-light))" },
+              { Icon: Mail, v: "Contact@africana-transfert.com", href: "mailto:Contact@africana-transfert.com", color: "hsl(var(--gold-light))" },
               { Icon: MapPin, v: "Tunis 1080, Tunisie", href: undefined, color: "hsl(var(--gold-light))" },
             ].map((c) => (
               <a
