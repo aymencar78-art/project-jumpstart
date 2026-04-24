@@ -7,6 +7,15 @@ import type { Lang, Translation } from "@/i18n/types";
 import type { PageKey } from "@/lib/pages";
 import { isRTL } from "@/i18n/translations";
 import heroBackground from "@/assets/sahara-hero.jpg";
+import carHatchback from "@/assets/car-hatchback.jpg";
+import carBerline from "@/assets/car-berline.jpg";
+import carMonospace from "@/assets/car-monospace.jpg";
+
+const CAR_IMG: Record<"hatchback" | "berline" | "monospace", string> = {
+  hatchback: carHatchback,
+  berline: carBerline,
+  monospace: carMonospace,
+};
 
 type Props = { setPage: (p: PageKey) => void; lang: Lang; t: Translation };
 
@@ -210,9 +219,9 @@ const PricingPage = ({ setPage, lang, t }: Props) => {
             }}
           >
             {[
-              { emoji: "🚗", name: tr(lang, "Hatchback", "Hatchback", "Hatchback", "Hatchback", "هاتشباك"), cap: "3 / 3" },
-              { emoji: "🚙", name: tr(lang, "Berline", "Sedan", "Limousine", "Berlina", "سيدان"), cap: "4 / 4" },
-              { emoji: "🚐", name: tr(lang, "Monospace", "Minivan", "Minivan", "Monovolumen", "مونوسباس"), cap: "8 / 8" },
+              { img: CAR_IMG.hatchback, name: tr(lang, "Hatchback", "Hatchback", "Hatchback", "Hatchback", "هاتشباك"), cap: "3 / 3" },
+              { img: CAR_IMG.berline, name: tr(lang, "Berline", "Sedan", "Limousine", "Berlina", "سيدان"), cap: "4 / 4" },
+              { img: CAR_IMG.monospace, name: tr(lang, "Monospace", "Minivan", "Minivan", "Monovolumen", "مونوسباس"), cap: "8 / 8" },
             ].map((v) => (
               <div
                 key={v.name}
@@ -224,7 +233,18 @@ const PricingPage = ({ setPage, lang, t }: Props) => {
                   background: "hsl(var(--bg-surface))",
                 }}
               >
-                <div style={{ fontSize: "22px" }}>{v.emoji}</div>
+                <img
+                  src={v.img}
+                  alt={v.name}
+                  loading="lazy"
+                  style={{
+                    width: "100%",
+                    height: "56px",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                    marginBottom: "6px",
+                  }}
+                />
                 <div
                   style={{
                     fontFamily: "var(--font-display)",
@@ -388,8 +408,6 @@ const PricingPage = ({ setPage, lang, t }: Props) => {
                 >
                   {(["hatchback", "berline", "monospace"] as const).map((kind) => {
                     const price = r.prices[kind];
-                    const emoji =
-                      kind === "hatchback" ? "🚗" : kind === "berline" ? "🚙" : "🚐";
                     return (
                       <div
                         key={kind}
@@ -401,7 +419,18 @@ const PricingPage = ({ setPage, lang, t }: Props) => {
                           border: "1px solid hsl(var(--border-gold))",
                         }}
                       >
-                        <div style={{ fontSize: "16px", marginBottom: "2px" }}>{emoji}</div>
+                        <img
+                          src={CAR_IMG[kind]}
+                          alt={kind}
+                          loading="lazy"
+                          style={{
+                            width: "100%",
+                            height: "40px",
+                            objectFit: "cover",
+                            borderRadius: "6px",
+                            marginBottom: "4px",
+                          }}
+                        />
                         <div
                           style={{
                             fontFamily: "var(--font-body)",
