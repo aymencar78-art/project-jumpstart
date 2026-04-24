@@ -484,7 +484,7 @@ const ExcursionsPage = ({ setPage, lang, t }: Props) => {
                   ✓ {SECTION_LABELS.included[lang]}
                 </h4>
                 <ul style={{ display: "grid", gap: "10px", listStyle: "none", padding: 0, margin: 0 }}>
-                  {INCLUSIONS.included[lang].map((inc) => (
+                  {(exc.inclusionsOverride?.[lang] ?? INCLUSIONS.included[lang]).map((inc) => (
                     <li
                       key={inc}
                       style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: "15px", color: "hsl(var(--ink))" }}
@@ -520,7 +520,7 @@ const ExcursionsPage = ({ setPage, lang, t }: Props) => {
                   ✗ {SECTION_LABELS.excluded[lang]}
                 </h4>
                 <ul style={{ display: "grid", gap: "10px", listStyle: "none", padding: 0, margin: 0 }}>
-                  {INCLUSIONS.excluded[lang].map((exc2) => (
+                  {(exc.exclusionsOverride?.[lang] ?? INCLUSIONS.excluded[lang]).map((exc2) => (
                     <li
                       key={exc2}
                       style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: "15px", color: "hsl(var(--ink))" }}
