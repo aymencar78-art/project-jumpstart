@@ -347,6 +347,19 @@ const EXCURSIONS_RAW: Excursion[] = [
   },
 ];
 
+/** Display order: Tunis → Kairouan → Nabeul → Sahara → Friguia → Dougga */
+const DISPLAY_ORDER = [
+  "grand-tunis",
+  "kairouan-eljem-sousse",
+  "nabeul-cap-bon",
+  "sahara-3-days",
+  "friguia-park",
+  "dougga-bulla-regia",
+];
+export const EXCURSIONS: Excursion[] = [...EXCURSIONS_RAW].sort(
+  (a, b) => DISPLAY_ORDER.indexOf(a.key) - DISPLAY_ORDER.indexOf(b.key)
+);
+
 /* ------------------------------------------------------------------ */
 /*  Localization helpers                                               */
 /* ------------------------------------------------------------------ */
