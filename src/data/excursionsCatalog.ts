@@ -28,6 +28,13 @@ export type PriceRow = {
   price4to8: number;
 };
 
+export type PaxPriceRow = {
+  /** Pax range label key */
+  paxKey: "1to3" | "4to7";
+  /** Total price in EUR for the whole group */
+  price: number;
+};
+
 export type Excursion = {
   key: string;
   /** 3 real images for gallery */
@@ -37,6 +44,8 @@ export type Excursion = {
   description: Record<Lang, string>;
   duration: Record<Lang, string>;
   priceRows: PriceRow[];
+  /** Optional: per-pax flat pricing (e.g. multi-day private tours) — replaces the from/vehicle table */
+  paxPricing?: PaxPriceRow[];
   /** Optional: shown instead of the pricing table when no fixed rates apply */
   quoteNote?: Record<Lang, string>;
   /** Optional: replaces the global INCLUSIONS list for this excursion */
