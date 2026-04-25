@@ -258,14 +258,10 @@ export const EXCURSIONS: Excursion[] = [
     },
     duration: { FR: "3 jours", EN: "3 days", IT: "3 giorni", DE: "3 Tage", ES: "3 días", AR: "3 أيام" },
     priceRows: [],
-    quoteNote: {
-      FR: "Sur devis personnalisé — selon le nombre de passagers et le véhicule. Contactez-nous pour un tarif sur mesure.",
-      EN: "Custom quote — based on number of passengers and vehicle. Contact us for a tailored price.",
-      IT: "Su preventivo personalizzato — in base al numero di passeggeri e al veicolo. Contattaci per un prezzo su misura.",
-      DE: "Individuelles Angebot — je nach Personenzahl und Fahrzeug. Kontaktieren Sie uns für einen maßgeschneiderten Preis.",
-      ES: "Presupuesto personalizado — según el número de pasajeros y el vehículo. Contáctanos para un precio a medida.",
-      AR: "عرض سعر مخصص — حسب عدد الركاب ونوع السيارة. تواصل معنا للحصول على سعر مفصّل.",
-    },
+    paxPricing: [
+      { paxKey: "1to3", price: 380 },
+      { paxKey: "4to7", price: 490 },
+    ],
     inclusionsOverride: {
       FR: [
         "Transport privé climatisé dédié à votre groupe (3 jours)",
