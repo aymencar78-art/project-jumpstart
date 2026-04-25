@@ -28,6 +28,13 @@ export type PriceRow = {
   price4to8: number;
 };
 
+export type PaxPriceRow = {
+  /** Pax range label key */
+  paxKey: "1to3" | "4to7";
+  /** Total price in EUR for the whole group */
+  price: number;
+};
+
 export type Excursion = {
   key: string;
   /** 3 real images for gallery */
@@ -37,6 +44,8 @@ export type Excursion = {
   description: Record<Lang, string>;
   duration: Record<Lang, string>;
   priceRows: PriceRow[];
+  /** Optional: per-pax flat pricing (e.g. multi-day private tours) — replaces the from/vehicle table */
+  paxPricing?: PaxPriceRow[];
   /** Optional: shown instead of the pricing table when no fixed rates apply */
   quoteNote?: Record<Lang, string>;
   /** Optional: replaces the global INCLUSIONS list for this excursion */
@@ -49,39 +58,39 @@ export type Excursion = {
 /*  CATALOGUE — built from official PDF (Tunisia_Excursions_Report)    */
 /* ------------------------------------------------------------------ */
 
-export const EXCURSIONS: Excursion[] = [
+const EXCURSIONS_RAW: Excursion[] = [
   {
-    key: "cap-bon",
-    images: [capBon1, capBon2, capBon3],
+    key: "grand-tunis",
+    images: [tunis1, tunis2, tunis3],
     title: {
-      FR: "Excursion · Hammamet · Nabeul · Haouaria · Korbous",
-      EN: "Excursion · Hammamet · Nabeul · Haouaria · Korbous",
-      IT: "Escursione · Hammamet · Nabeul · Haouaria · Korbous",
-      DE: "Ausflug · Hammamet · Nabeul · Haouaria · Korbous",
-      ES: "Excursión · Hammamet · Nabeul · Haouaria · Korbous",
-      AR: "رحلة · الحمامات · نابل · هوارية · قربص",
+      FR: "Excursion · Tunis (Médina) · Carthage · Sidi Bou Saïd",
+      EN: "Excursion · Tunis (Medina) · Carthage · Sidi Bou Saïd",
+      IT: "Escursione · Tunisi (Medina) · Cartagine · Sidi Bou Saïd",
+      DE: "Ausflug · Tunis (Medina) · Karthago · Sidi Bou Saïd",
+      ES: "Excursión · Túnez (Medina) · Cartago · Sidi Bou Saïd",
+      AR: "رحلة · تونس (المدينة) · قرطاج · سيدي بوسعيد",
     },
     destinations: {
-      FR: "Hammamet (Médina) · Nabeul (Artisanat & Poterie) · Haouaria (Grottes) · Korbous (Sources thermales)",
-      EN: "Hammamet (Medina) · Nabeul (Crafts & Pottery) · Haouaria (Caves) · Korbous (Thermal springs)",
-      IT: "Hammamet (Medina) · Nabeul (Artigianato & Ceramica) · Haouaria (Grotte) · Korbous (Sorgenti termali)",
-      DE: "Hammamet (Medina) · Nabeul (Kunsthandwerk & Keramik) · Haouaria (Grotten) · Korbous (Thermalquellen)",
-      ES: "Hammamet (Medina) · Nabeul (Artesanía y cerámica) · Haouaria (Grutas) · Korbous (Termas)",
-      AR: "الحمامات (المدينة العتيقة) · نابل (الحرف والفخار) · هوارية (المغارات) · قربص (الينابيع الحارة)",
+      FR: "Médina de Tunis · Site archéologique de Carthage · Sidi Bou Saïd",
+      EN: "Tunis Medina · Carthage archaeological site · Sidi Bou Saïd",
+      IT: "Medina di Tunisi · Sito archeologico di Cartagine · Sidi Bou Saïd",
+      DE: "Medina von Tunis · Archäologische Stätte Karthago · Sidi Bou Saïd",
+      ES: "Medina de Túnez · Sitio arqueológico de Cartago · Sidi Bou Saïd",
+      AR: "المدينة العتيقة بتونس · موقع قرطاج الأثري · سيدي بوسعيد",
     },
     description: {
-      FR: "Une journée riche entre artisanat berbère, médina pittoresque, falaises sculptées par la mer et bains thermaux ancestraux.",
-      EN: "A full day between Berber craftsmanship, a picturesque medina, sea-carved cliffs and ancestral thermal baths.",
-      IT: "Una giornata intera tra artigianato berbero, una medina pittoresca, scogliere modellate dal mare e antichi bagni termali.",
-      DE: "Ein voller Tag zwischen Berberhandwerk, malerischer Medina, vom Meer geformten Klippen und uralten Thermalbädern.",
-      ES: "Un día completo entre artesanía bereber, medina pintoresca, acantilados esculpidos por el mar y baños termales ancestrales.",
-      AR: "يوم كامل بين الحرف البربرية، المدينة العتيقة الخلابة، المنحدرات البحرية والحمامات الحارة العريقة.",
+      FR: "L'essence de la capitale : souks animés de la médina, vestiges puniques de Carthage et le bleu et blanc inoubliable de Sidi Bou Saïd.",
+      EN: "The essence of the capital: vibrant medina souks, the Punic ruins of Carthage and the unforgettable blue-and-white of Sidi Bou Saïd.",
+      IT: "L'essenza della capitale: vivaci suk della medina, le rovine puniche di Cartagine e l'indimenticabile bianco e blu di Sidi Bou Saïd.",
+      DE: "Das Herz der Hauptstadt: lebhafte Souks der Medina, punische Ruinen Karthagos und das unvergessliche Blau-Weiß von Sidi Bou Saïd.",
+      ES: "La esencia de la capital: vibrantes zocos de la medina, las ruinas púnicas de Cartago y el inolvidable azul y blanco de Sidi Bou Saïd.",
+      AR: "جوهر العاصمة: أسواق المدينة العتيقة النابضة، آثار قرطاج البونية، والأزرق والأبيض الخلاب لسيدي بوسعيد.",
     },
     duration: { FR: "1 jour", EN: "1 day", IT: "1 giorno", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
     priceRows: [
-      { fromKey: "tunis", price1to4: 133, price4to8: 167 },
-      { fromKey: "hammamet_nabeul", price1to4: 95, price4to8: 137 },
-      { fromKey: "sousse_monastir", price1to4: 142, price4to8: 167 },
+      { fromKey: "hammamet_nabeul", price1to4: 95, price4to8: 147 },
+      { fromKey: "sousse_monastir", price1to4: 133, price4to8: 167 },
+      { fromKey: "tunis", price1to4: 95, price4to8: 147 },
     ],
   },
   {
@@ -119,37 +128,37 @@ export const EXCURSIONS: Excursion[] = [
     ],
   },
   {
-    key: "grand-tunis",
-    images: [tunis1, tunis2, tunis3],
+    key: "nabeul-cap-bon",
+    images: [capBon1, capBon2, capBon3],
     title: {
-      FR: "Excursion · Tunis (Médina) · Carthage · Sidi Bou Saïd",
-      EN: "Excursion · Tunis (Medina) · Carthage · Sidi Bou Saïd",
-      IT: "Escursione · Tunisi (Medina) · Cartagine · Sidi Bou Saïd",
-      DE: "Ausflug · Tunis (Medina) · Karthago · Sidi Bou Saïd",
-      ES: "Excursión · Túnez (Medina) · Cartago · Sidi Bou Saïd",
-      AR: "رحلة · تونس (المدينة) · قرطاج · سيدي بوسعيد",
+      FR: "Excursion · Nabeul · Haouaria · Korbous",
+      EN: "Excursion · Nabeul · Haouaria · Korbous",
+      IT: "Escursione · Nabeul · Haouaria · Korbous",
+      DE: "Ausflug · Nabeul · Haouaria · Korbous",
+      ES: "Excursión · Nabeul · Haouaria · Korbous",
+      AR: "رحلة · نابل · هوارية · قربص",
     },
     destinations: {
-      FR: "Médina de Tunis · Site archéologique de Carthage · Sidi Bou Saïd",
-      EN: "Tunis Medina · Carthage archaeological site · Sidi Bou Saïd",
-      IT: "Medina di Tunisi · Sito archeologico di Cartagine · Sidi Bou Saïd",
-      DE: "Medina von Tunis · Archäologische Stätte Karthago · Sidi Bou Saïd",
-      ES: "Medina de Túnez · Sitio arqueológico de Cartago · Sidi Bou Saïd",
-      AR: "المدينة العتيقة بتونس · موقع قرطاج الأثري · سيدي بوسعيد",
+      FR: "Nabeul (Artisanat & Poterie) · Haouaria (Grottes) · Korbous (Sources thermales)",
+      EN: "Nabeul (Crafts & Pottery) · Haouaria (Caves) · Korbous (Thermal springs)",
+      IT: "Nabeul (Artigianato & Ceramica) · Haouaria (Grotte) · Korbous (Sorgenti termali)",
+      DE: "Nabeul (Kunsthandwerk & Keramik) · Haouaria (Grotten) · Korbous (Thermalquellen)",
+      ES: "Nabeul (Artesanía y cerámica) · Haouaria (Grutas) · Korbous (Termas)",
+      AR: "نابل (الحرف والفخار) · هوارية (المغارات) · قربص (الينابيع الحارة)",
     },
     description: {
-      FR: "L'essence de la capitale : souks animés de la médina, vestiges puniques de Carthage et le bleu et blanc inoubliable de Sidi Bou Saïd.",
-      EN: "The essence of the capital: vibrant medina souks, the Punic ruins of Carthage and the unforgettable blue-and-white of Sidi Bou Saïd.",
-      IT: "L'essenza della capitale: vivaci suk della medina, le rovine puniche di Cartagine e l'indimenticabile bianco e blu di Sidi Bou Saïd.",
-      DE: "Das Herz der Hauptstadt: lebhafte Souks der Medina, punische Ruinen Karthagos und das unvergessliche Blau-Weiß von Sidi Bou Saïd.",
-      ES: "La esencia de la capital: vibrantes zocos de la medina, las ruinas púnicas de Cartago y el inolvidable azul y blanco de Sidi Bou Saïd.",
-      AR: "جوهر العاصمة: أسواق المدينة العتيقة النابضة، آثار قرطاج البونية، والأزرق والأبيض الخلاب لسيدي بوسعيد.",
+      FR: "Une journée riche entre artisanat berbère, médina pittoresque, falaises sculptées par la mer et bains thermaux ancestraux.",
+      EN: "A full day between Berber craftsmanship, a picturesque medina, sea-carved cliffs and ancestral thermal baths.",
+      IT: "Una giornata intera tra artigianato berbero, una medina pittoresca, scogliere modellate dal mare e antichi bagni termali.",
+      DE: "Ein voller Tag zwischen Berberhandwerk, malerischer Medina, vom Meer geformten Klippen und uralten Thermalbädern.",
+      ES: "Un día completo entre artesanía bereber, medina pintoresca, acantilados esculpidos por el mar y baños termales ancestrales.",
+      AR: "يوم كامل بين الحرف البربرية، المدينة العتيقة الخلابة، المنحدرات البحرية والحمامات الحارة العريقة.",
     },
     duration: { FR: "1 jour", EN: "1 day", IT: "1 giorno", DE: "1 Tag", ES: "1 día", AR: "يوم واحد" },
     priceRows: [
-      { fromKey: "hammamet_nabeul", price1to4: 95, price4to8: 147 },
-      { fromKey: "sousse_monastir", price1to4: 133, price4to8: 167 },
-      { fromKey: "tunis", price1to4: 95, price4to8: 147 },
+      { fromKey: "tunis", price1to4: 133, price4to8: 167 },
+      { fromKey: "hammamet_nabeul", price1to4: 95, price4to8: 137 },
+      { fromKey: "sousse_monastir", price1to4: 142, price4to8: 167 },
     ],
   },
   {
@@ -249,14 +258,10 @@ export const EXCURSIONS: Excursion[] = [
     },
     duration: { FR: "3 jours", EN: "3 days", IT: "3 giorni", DE: "3 Tage", ES: "3 días", AR: "3 أيام" },
     priceRows: [],
-    quoteNote: {
-      FR: "Sur devis personnalisé — selon le nombre de passagers et le véhicule. Contactez-nous pour un tarif sur mesure.",
-      EN: "Custom quote — based on number of passengers and vehicle. Contact us for a tailored price.",
-      IT: "Su preventivo personalizzato — in base al numero di passeggeri e al veicolo. Contattaci per un prezzo su misura.",
-      DE: "Individuelles Angebot — je nach Personenzahl und Fahrzeug. Kontaktieren Sie uns für einen maßgeschneiderten Preis.",
-      ES: "Presupuesto personalizado — según el número de pasajeros y el vehículo. Contáctanos para un precio a medida.",
-      AR: "عرض سعر مخصص — حسب عدد الركاب ونوع السيارة. تواصل معنا للحصول على سعر مفصّل.",
-    },
+    paxPricing: [
+      { paxKey: "1to3", price: 380 },
+      { paxKey: "4to7", price: 490 },
+    ],
     inclusionsOverride: {
       FR: [
         "Transport privé climatisé dédié à votre groupe (3 jours)",
@@ -342,6 +347,19 @@ export const EXCURSIONS: Excursion[] = [
   },
 ];
 
+/** Display order: Tunis → Kairouan → Nabeul → Sahara → Friguia → Dougga */
+const DISPLAY_ORDER = [
+  "grand-tunis",
+  "kairouan-eljem-sousse",
+  "nabeul-cap-bon",
+  "sahara-3-days",
+  "friguia-park",
+  "dougga-bulla-regia",
+];
+export const EXCURSIONS: Excursion[] = [...EXCURSIONS_RAW].sort(
+  (a, b) => DISPLAY_ORDER.indexOf(a.key) - DISPLAY_ORDER.indexOf(b.key)
+);
+
 /* ------------------------------------------------------------------ */
 /*  Localization helpers                                               */
 /* ------------------------------------------------------------------ */
@@ -378,6 +396,25 @@ export const FROM_LABEL: Record<PriceRow["fromKey"], Record<Lang, string>> = {
     DE: "Sousse",
     ES: "Sousse",
     AR: "سوسة",
+  },
+};
+
+export const PAX_LABEL: Record<PaxPriceRow["paxKey"], Record<Lang, string>> = {
+  "1to3": {
+    FR: "1 à 3 personnes",
+    EN: "1 to 3 people",
+    IT: "Da 1 a 3 persone",
+    DE: "1 bis 3 Personen",
+    ES: "De 1 a 3 personas",
+    AR: "من 1 إلى 3 أشخاص",
+  },
+  "4to7": {
+    FR: "4 à 7 personnes",
+    EN: "4 to 7 people",
+    IT: "Da 4 a 7 persone",
+    DE: "4 bis 7 Personen",
+    ES: "De 4 a 7 personas",
+    AR: "من 4 إلى 7 أشخاص",
   },
 };
 

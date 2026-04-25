@@ -7,7 +7,19 @@ type Props = { setPage: (p: PageKey) => void; lang: Lang; t: Translation };
 const Footer = ({ setPage, lang, t }: Props) => {
   const dir = isRTL(lang) ? "rtl" : "ltr";
 
+  const quickTitle = ({ FR: "ACCÈS RAPIDE", EN: "QUICK LINKS", IT: "ACCESSO RAPIDO", DE: "SCHNELLZUGRIFF", ES: "ACCESO RÁPIDO", AR: "روابط سريعة" } as Record<Lang, string>)[lang];
+
   const columns = [
+    {
+      title: quickTitle,
+      links: [
+        { l: t.nav_home, p: "home" as PageKey },
+        { l: t.nav_book, p: "booking" as PageKey },
+        { l: t.nav_excursions, p: "excursions" as PageKey },
+        { l: t.nav_pricing, p: "pricing" as PageKey },
+        { l: t.nav_contact, p: "contact" as PageKey },
+      ],
+    },
     {
       title: t.footer_services_col,
       links: [

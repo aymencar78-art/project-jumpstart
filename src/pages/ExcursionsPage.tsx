@@ -7,6 +7,7 @@ import {
   TABLE_HEADERS,
   INCLUSIONS,
   SECTION_LABELS,
+  PAX_LABEL,
 } from "@/data/excursionsCatalog";
 import type { Lang, Translation } from "@/i18n/types";
 import type { PageKey } from "@/lib/pages";
@@ -335,7 +336,58 @@ const ExcursionsPage = ({ setPage, lang, t }: Props) => {
                 {SECTION_LABELS.pricing[lang]}
               </h3>
 
-              {exc.priceRows.length === 0 && exc.quoteNote ? (
+              {exc.paxPricing && exc.paxPricing.length > 0 ? (
+                /* Pax-based flat pricing — centered cards */
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                    gap: "16px",
+                    justifyItems: "center",
+                  }}
+                >
+                  {exc.paxPricing.map((row) => (
+                    <div
+                      key={row.paxKey}
+                      style={{
+                        width: "100%",
+                        maxWidth: "320px",
+                        padding: "22px 18px",
+                        background: "#fff",
+                        border: "1px solid hsl(var(--border-gold))",
+                        borderRadius: "14px",
+                        textAlign: "center",
+                        boxShadow: "0 6px 18px -10px rgba(11,26,47,0.25)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "11px",
+                          letterSpacing: "2.5px",
+                          color: "hsl(var(--gold))",
+                          fontWeight: 700,
+                          textTransform: "uppercase",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        {PAX_LABEL[row.paxKey][lang]}
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: "var(--font-display)",
+                          fontSize: "36px",
+                          fontWeight: 800,
+                          color: "hsl(var(--ink))",
+                          lineHeight: 1,
+                        }}
+                      >
+                        {row.price} €
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : exc.priceRows.length === 0 && exc.quoteNote ? (
                 <div
                   style={{
                     padding: "16px 18px",
