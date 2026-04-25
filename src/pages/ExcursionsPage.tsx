@@ -7,6 +7,7 @@ import {
   TABLE_HEADERS,
   INCLUSIONS,
   SECTION_LABELS,
+  PAX_LABEL,
 } from "@/data/excursionsCatalog";
 import type { Lang, Translation } from "@/i18n/types";
 import type { PageKey } from "@/lib/pages";
