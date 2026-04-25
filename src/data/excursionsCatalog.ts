@@ -58,7 +58,7 @@ export type Excursion = {
 /*  CATALOGUE — built from official PDF (Tunisia_Excursions_Report)    */
 /* ------------------------------------------------------------------ */
 
-export const EXCURSIONS: Excursion[] = [
+const EXCURSIONS_RAW: Excursion[] = [
   {
     key: "grand-tunis",
     images: [tunis1, tunis2, tunis3],
