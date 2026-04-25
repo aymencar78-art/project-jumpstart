@@ -399,6 +399,25 @@ export const FROM_LABEL: Record<PriceRow["fromKey"], Record<Lang, string>> = {
   },
 };
 
+export const PAX_LABEL: Record<PaxPriceRow["paxKey"], Record<Lang, string>> = {
+  "1to3": {
+    FR: "1 à 3 personnes",
+    EN: "1 to 3 people",
+    IT: "Da 1 a 3 persone",
+    DE: "1 bis 3 Personen",
+    ES: "De 1 a 3 personas",
+    AR: "من 1 إلى 3 أشخاص",
+  },
+  "4to7": {
+    FR: "4 à 7 personnes",
+    EN: "4 to 7 people",
+    IT: "Da 4 a 7 persone",
+    DE: "4 bis 7 Personen",
+    ES: "De 4 a 7 personas",
+    AR: "من 4 إلى 7 أشخاص",
+  },
+};
+
 export const TABLE_HEADERS: Record<"from" | "v1to4" | "v4to8", Record<Lang, string>> = {
   from: {
     FR: "Départ depuis",
